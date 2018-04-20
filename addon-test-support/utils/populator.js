@@ -1,8 +1,10 @@
-import findInput from './find-input';
+import findControl from './find-control';
 import { fillIn } from '@ember/test-helpers';
 
 export default async function populate(strategy, label, value) {
-  let {input, filler} = await findInput(label);
+  let filler = null;
+  let input = await findControl(label);
+  //let inputType = await findInputType(input);
   let tagStratergies = {
     input: {
       input: fillIn,
