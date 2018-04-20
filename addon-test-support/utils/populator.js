@@ -1,5 +1,5 @@
 import findControl from './find-control';
-import { fillIn } from '@ember/test-helpers';
+import { fillIn, find } from '@ember/test-helpers';
 
 export default async function populate(strategy, label, value) {
   let filler = null;
@@ -27,7 +27,7 @@ export default async function populate(strategy, label, value) {
     if (strategyCollection.includes(tag)) {
       control = input;
     } else {
-      control = $(input).find(strategyCollection.join(', '))[0];
+      control = find(`#${input.id} ${strategyCollection.join(', ')}`);
       if(control){
         tag = control.tagName.toLowerCase();
       } else {
