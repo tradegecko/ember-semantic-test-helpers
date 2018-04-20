@@ -11,8 +11,6 @@ found in any/all of the following locations **if-and-only-if the element is
 perceivable**:
 
 - Its `innerText` property
-- Its `title` attribute
-- Its `alt` attribute
 - Its `aria-label` attribute
 - The **perceivable text** of the element identified by its `aria-labelledby` attribute
 
