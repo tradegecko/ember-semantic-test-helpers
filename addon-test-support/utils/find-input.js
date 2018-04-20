@@ -2,7 +2,6 @@ import { findAll } from "@ember/test-helpers";
 
 export default async function findInput(label) {
   let element = await findLabel(label);
-
   if (!element) {
     throw Error(`Can't find label ${label}`);
   }
@@ -24,10 +23,11 @@ export default async function findInput(label) {
 function findLabel(text) {
   let label = findAll('label').find( label => { return label.innerText === text });
   if(!label){
-    return findAll('[aria-label]').find( control => {
+    label = findAll('[aria-label]').find( control => {
       return control.attributes['aria-label'].value === text
     });
   }
+  return label;
 }
 
 function findControl(label, element) {
