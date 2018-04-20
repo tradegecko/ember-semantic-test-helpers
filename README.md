@@ -1,6 +1,32 @@
 # Ember-semantic-test-helpers
 
-[Short description of the addon.]
+Exposes semantic helpers based on https://github.com/emberjs/rfcs/pull/327 rfc
+
+currently supports
+
+### Definitions
+
+A **link** is one of the following:
+
+- `a`
+
+
+A **button** is one of the following:
+
+- `button`
+
+
+An **input** is one of the following:
+
+- `input`
+- `textarea`
+- `select`
+
+
+A **switch** is one of the following:
+
+currently does not support checkboxes
+
 
 Installation
 ------------------------------------------------------------------------------
@@ -13,8 +39,28 @@ ember install my-addon
 Usage
 ------------------------------------------------------------------------------
 
-[Longer description of how to use the addon in apps.]
 
+```js
+import { click, fillIn, select, toggle } from 'ember-semantic-test-helpers/test-support';
+```
+
+
+```js
+test('Logging in', async function(assert) {
+  await visit('/login');
+  await fillIn('Email', 'alice@example.com');
+  await fillIn('Password', 'topsecret');
+  await select('Some lable targeting a select', 123)
+  await toggle('keep me logged in', true)
+  await click('Log in');
+});
+```
+
+Caveats
+------------------------------------------------------------------------------
+- selecting an option is currently based on the value this will change to the label.
+- currently does not support checkboxes
+- does use a little bit of jquery
 
 Contributing
 ------------------------------------------------------------------------------
