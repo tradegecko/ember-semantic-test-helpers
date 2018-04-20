@@ -1,4 +1,4 @@
-import { findAll, find } from "@ember/test-helpers";
+import { find } from "@ember/test-helpers";
 import findLabel from './find-label';
 
 export default async function (labelText) {
@@ -25,7 +25,7 @@ function findControl(label, element) {
   if (!targetControl) {
     throw new Error(`${label} does not have a for attribute`);
   }
-  let input = element.control || $(`#${element.attributes['for'].value}`)[0];
+  let input = element.control || find(`#${element.attributes['for'].value}`);
   if (!input) {
     throw (`could not find input labeled ${label}`);
   }

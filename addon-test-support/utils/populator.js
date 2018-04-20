@@ -28,6 +28,11 @@ export default async function populate(strategy, label, value) {
       control = input;
     } else {
       control = $(input).find(strategyCollection.join(', '))[0];
+      if(control){
+        tag = control.tagName.toLowerCase();
+      } else {
+        throw new Error(`Cannot find a valid control or aria path for ${label}`)
+      }
     }
     if (control) {
       strategyHash[tag](control, value);
