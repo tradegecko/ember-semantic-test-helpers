@@ -18,4 +18,29 @@ module('Integration | Helper | fillIn', function(hooks) {
     let input = find('input');
     assert.equal(input.value, 'hello world');
   });
+
+
+  test('it finds aria-labelby attribute', async function(assert) {
+    // Template block usage:
+    await render(hbs`
+      <input aria-label="location" type="text" />
+    `);
+    await fillIn('location', 'hello mars');
+    let input = find('input');
+    assert.equal(input.value, 'hello mars');
+  });
+
+
+  test('it finds aria-label attribute', async function(assert) {
+    // Template block usage:
+    await render(hbs`
+      <div id="billing">Billing</div>
+      <div id="name">Name</div>
+      <input type="text" aria-labelledby="billing name"/>
+    `);
+    await fillIn('Billing Name', 'expensive');
+    let input = find('input');
+    debugger
+    assert.equal(input.value, 'expensive');
+  });
 });
