@@ -1,39 +1,34 @@
 import findInput from './find-input';
-import { fillIn } from "@ember/test-helpers";
+import { fillIn } from '@ember/test-helpers';
 
-export default async function populate(stratergy, label, value) {
-  let {input, inputType} = await findInput(label);
+export default async function populate(strategy, label, value) {
+  let {input, filler} = await findInput(label);
   let tagStratergies = {
-    input: [
-      'input',
-      'textarea',
-    ],
-    select: [
-      'select',
-    ],
+    input: {
+      input: fillIn,
+      textarea: fillIn,
+    },
+    select: {
+      select: fillIn,
+    },
   };
-  if (inputType) {
-    let path = `App/test/helpers/forms/${stratergy}-fillers/${inputType}`;
-    try {
-      let filler = require(path).default;
-      return filler(input, value);
-    } catch (e) {
-      throw e;
-    }
+  if (filler) {
+    return filler(input, value);
   } else {
     let tag = input.tagName.toLowerCase();
-    let stratergyCollection = tagStratergies[stratergy];
+    let strategyHash = tagStratergies[strategy];
+    let strategyCollection = Object.keys(strategyHash)
     let control;
-    if (!stratergyCollection) {
-      throw new Error(`unkown stratergy ${stratergy}`);
+    if (!strategyCollection) {
+      throw new Error(`unkown strategy ${strategy}`);
     }
-    if (stratergyCollection.includes(tag)) {
+    if (strategyCollection.includes(tag)) {
       control = input;
     } else {
-      control = $(input).find(stratergyCollection.join(', '))[0];
+      control = $(input).find(strategyCollection.join(', '))[0];
     }
     if (control) {
-      return fillIn(control, value);
+      strategyHash[tag](control, value);
     }
   }
 }
