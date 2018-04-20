@@ -39,7 +39,9 @@ function findLabel(text) {
   }
   if(!label){
     label = findAll('[aria-label]').find( control => {
-      return control.attributes['aria-label'].value === text
+      if(!control.attributes['aria-labelledby']){
+        return control.attributes['aria-label'].value === text
+      }
     });
   }
 

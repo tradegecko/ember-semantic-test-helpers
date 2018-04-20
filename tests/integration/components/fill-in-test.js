@@ -20,7 +20,7 @@ module('Integration | Helper | fillIn', function(hooks) {
   });
 
 
-  test('it finds aria-labelby attribute', async function(assert) {
+  test('it finds aria-label attribute', async function(assert) {
     // Template block usage:
     await render(hbs`
       <input aria-label="location" type="text" />
@@ -31,7 +31,7 @@ module('Integration | Helper | fillIn', function(hooks) {
   });
 
 
-  test('it finds aria-label attribute', async function(assert) {
+  test('it finds aria-labelledby attribute', async function(assert) {
     // Template block usage:
     await render(hbs`
       <div id="billing">Billing</div>
@@ -40,7 +40,21 @@ module('Integration | Helper | fillIn', function(hooks) {
     `);
     await fillIn('Billing Name', 'expensive');
     let input = find('input');
-    debugger
     assert.equal(input.value, 'expensive');
+  });
+
+  test('if aria-labelledby is present it will ignore aria-label attribute', async function(assert) {
+    // Template block usage:
+    await render(hbs`
+      <div id="billing">Billing</div>
+      <div id="name">Name</div>
+      <input type="text" aria-labelledby="billing name" aria-label='Location'/>
+    `);
+    try {
+      await fillIn('Location', 'expensive');
+    } catch(e) {
+      assert.equal(e.message, `Can't find label Location`)
+    }
+
   });
 });
