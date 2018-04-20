@@ -25,8 +25,13 @@ export default function findLabel(labelText) {
      }
 
      //find rare case of type=image and alt
-     if(!label && element.attributes.type && element.attributes.type.value === "image" && element.attributes.alt && element.attributes.alt.value){
-       label = element.attributes['title'].value;
+     if(!label && element.attributes.type && element.attributes.type.value === "image"){
+       if(element.attributes['alt']) {
+         label = element.attributes['alt'].value;
+       } else if(element.attributes['title']) {
+         label = element.attributes['title'].value;
+       }
+
      }
 
      //lastly use title
@@ -38,7 +43,11 @@ export default function findLabel(labelText) {
        return {label, element}
      }
   });
-  let result = computedLabels.find( hash => { return hash.label === labelText });
+  let result = computedLabels.find( hash => {
+    if(hash){
+      return hash.label === labelText
+    }
+  });
   if(result){
     return result.element;
   }
