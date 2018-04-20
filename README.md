@@ -6,7 +6,27 @@ currently supports
 
 ### Definitions
 
+The **perceivable text** of a **link**, **button**, or other element may be
+found in any/all of the following locations **if-and-only-if the element is
+perceivable**:
+
+- Its `innerText` property
+- Its `title` attribute
+- Its `alt` attribute
+- Its `aria-label` attribute
+- The **perceivable text** of the element identified by its `aria-labelledby` attribute
+
+The **perceivable label** of a **perceivable form control** may be found in
+any/all of the following locations:
+
+- Its `aria-label` attribute
+- The **perceivable text** of its **label**
+- The **perceivable text** of the element identified by its `aria-labelledby` attribute
 A **link** is one of the following:
+
+if `aria-labelledby` is present it `aria-label` will not be perceivable to screen readers and there for not to this addon.
+
+https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
 
 - `a`
 
