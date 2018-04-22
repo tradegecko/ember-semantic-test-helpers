@@ -1,5 +1,5 @@
 import { click } from '@ember/test-helpers';
-import findButton from './utils/find-button';
+import findButton from './find-button';
 
 export default async function clickByLabel(text) {
   let element = findButton(text);
