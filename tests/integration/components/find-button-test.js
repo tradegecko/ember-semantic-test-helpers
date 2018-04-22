@@ -8,6 +8,27 @@ import { find } from 'ember-test-helpers';
 module('Integration | Helper | findButton', function(hooks) {
   setupRenderingTest(hooks);
 
+  test('supports button nested in label', async function(assert){
+    await render(hbs`
+      <label>
+        label
+        <button>'x'</button>
+      </label>
+    `);
+    let button = await findButton('label x');
+    assert.equal(button, find('button'));
+  })
+
+  test('supports button nested in label, with aria-label on wrapper', async function(assert){
+    await render(hbs`
+      <label aria-label="xyz">label<button>'x'</button></label>
+    `);
+    let button = await findButton('xyz');
+    assert.equal(button, find('button'));
+  });
+
+
+
   test('find by aria-labelledby', async function(assert) {
     let button = null;
     await render(hbs`

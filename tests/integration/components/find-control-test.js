@@ -16,6 +16,15 @@ module('Integration | Helper | findControl', function(hooks) {
 
   module('Percivable by label', function(){
 
+    test('it finds input nested in label', async function(assert) {
+      await render(hbs`
+        <label>Label of control
+          {{input id="control" type="text"}}
+        </label>
+
+      `);
+      assertControl(assert);
+    });
     test('it finds input', async function(assert) {
       await render(hbs`
         <label for='control'>Label of control</label>
