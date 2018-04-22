@@ -53,20 +53,7 @@ module('Integration | Helper | fillIn', function(hooks) {
     try {
       await fillIn('Location', 'expensive');
     } catch(e) {
-      assert.equal(e.message, `Can't find label Location`)
+      assert.equal(e.message, `Could not find control labeled 'Location'`)
     }
-  });
-  
-  test('finds input if nested in a div', async function(assert) {
-    // Template block usage:
-    await render(hbs`
-      <label for='control'>Location</label>
-      <div id="control">
-        {{input type="text"}}
-      </div>
-    `);
-    await fillIn('Location', 'hello world');
-    let input = find('input');
-    assert.equal(input.value, 'hello world');
   });
 });
