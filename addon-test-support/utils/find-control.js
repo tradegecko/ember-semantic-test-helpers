@@ -1,33 +1,33 @@
-import { find } from "@ember/test-helpers";
-import findLabel from './find-label';
+import { findAll } from "@ember/test-helpers";
+import computeAria from './compute-aria';
+
+let inputs = [
+  'input',
+  'textarea',
+  'select',
+  '[role="slider"]',
+  '[role="spinbutton"]',
+  '[role="textbox"]',
+  '[contenteditable="true"]',
+]
+
+let toggles = [
+  '[role="checkbox"]',
+]
+
+let selectables = [
+  '[role="listbox"]',
+  '[role="radiogroup"]',
+]
+
+let controlSelector = [inputs.join(','), toggles.join(','), selectables.join(',')].join(',');
 
 export default async function (labelText) {
-  let element = await findLabel(labelText);
-  if (!element) {
-    throw Error(`Can't find label ${labelText}`);
+  let control = findAll(controlSelector).find( (element) => {
+    return computeAria(element) === labelText.toLowerCase()
+  });
+  if(!control){
+    throw new Error(`Could not find control labeled '${labelText}'`)
   }
-  let input = await findControl(labelText, element);
-  if (!input) {
-    throw Error(`Can't find input for ${labelText}`);
-  }
-  if (!input.attributes) {
-    throw Error(`Can't find input attributes for ${labelText}`);
-  }
-
-  return input;
-}
-
-function findControl(label, element) {
-  if(element.attributes['aria-label'] || element.attributes['aria-labelledby']){
-    return element;
-  }
-  let targetControl = element.attributes['for'];
-  if (!targetControl) {
-    throw new Error(`${label} does not have a for attribute`);
-  }
-  let input = element.control || find(`#${element.attributes['for'].value}`);
-  if (!input) {
-    throw (`could not find input labeled ${label}`);
-  }
-  return input;
+  return control
 }
