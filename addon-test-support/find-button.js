@@ -12,8 +12,12 @@ let selector = [
   '[role="menuitem"]',
 ].join(',');
 
-export default function findButton(text) {
-  return findAll(selector).find( (element) => {
-    return computeAria(element) === text.toLowerCase()
+export default function findButton(labelText) {
+  let button = findAll(selector).find( (element) => {
+    return computeAria(element) === labelText.toLowerCase()
   });
+  if(!button){
+    throw new Error(`Could not find button labeled '${labelText}'`)
+  }
+  return button
 }

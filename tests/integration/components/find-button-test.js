@@ -5,6 +5,16 @@ import hbs from 'htmlbars-inline-precompile';
 import { findButton } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
 
+async function assertMissingButton(assert, text){
+  let button = null;
+  try{
+    button = await findButton(text);
+  } catch(e) {
+    assert.equal(e.message, `Could not find button labeled '${text}'`)
+  }
+  assert.equal(button, undefined);
+
+}
 module('Integration | Helper | findButton', function(hooks) {
   setupRenderingTest(hooks);
 
@@ -18,14 +28,10 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('hello world');
     assert.equal(button, find('button'));
-    button = await findButton('qqq');
-    assert.equal(button, undefined);
-    button = await findButton('interesting');
-    assert.equal(button, undefined);
-    button = await findButton('asd');
-    assert.equal(button, undefined);
-    button = await findButton('bestbutton');
-    assert.equal(button, undefined);
+    assertMissingButton('qqq')
+    assertMissingButton('interesting')
+    assertMissingButton('asd')
+    assertMissingButton('bestbutton')
   });
 
   test('find by aria-label', async function(assert) {
@@ -36,12 +42,9 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     let button = await findButton('qqq');
     assert.equal(button, find('button'));
-    button = await findButton('interesting');
-    assert.equal(button, undefined);
-    button = await findButton('asd');
-    assert.equal(button, undefined);
-    button = await findButton('bestbutton');
-    assert.equal(button, undefined);
+    assertMissingButton('interesting')
+    assertMissingButton('asd')
+    assertMissingButton('bestbutton')
   });
 
   test('find by label', async function(assert) {
@@ -54,10 +57,8 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('bestbutton');
     assert.equal(button, find('button'));
-    button = await findButton('interesting');
-    assert.equal(button, undefined);
-    button = await findButton('asd');
-    assert.equal(button, undefined);
+    assertMissingButton('interesting')
+    assertMissingButton('asd')
 
     await render(hbs`
       <label for="mybutton">best button</label>
@@ -76,8 +77,7 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('asd');
     assert.equal(button, find('button'));
-    button = await findButton('interesting');
-    assert.equal(button, undefined);
+    assertMissingButton('asd')
   });
 
   test('find by title', async function(assert) {
