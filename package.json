@@ -1,6 +1,6 @@
 {
   "name": "ember-semantic-test-helpers",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [
     "ember-addon"
