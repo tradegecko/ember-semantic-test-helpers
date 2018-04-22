@@ -1,5 +1,5 @@
 import { findAll } from '@ember/test-helpers';
-import computeAria from './compute-aria';
+import computeAria from './utils/compute-aria';
 
 let selector = [
   'button',
