@@ -28,10 +28,10 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('hello world');
     assert.equal(button, find('button'));
-    assertMissingButton('qqq')
-    assertMissingButton('interesting')
-    assertMissingButton('asd')
-    assertMissingButton('bestbutton')
+    assertMissingButton(assert, 'qqq')
+    assertMissingButton(assert, 'interesting')
+    assertMissingButton(assert, 'asd')
+    assertMissingButton(assert, 'bestbutton')
   });
 
   test('find by aria-label', async function(assert) {
@@ -42,9 +42,9 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     let button = await findButton('qqq');
     assert.equal(button, find('button'));
-    assertMissingButton('interesting')
-    assertMissingButton('asd')
-    assertMissingButton('bestbutton')
+    assertMissingButton(assert, 'interesting')
+    assertMissingButton(assert, 'asd')
+    assertMissingButton(assert, 'bestbutton')
   });
 
   test('find by label', async function(assert) {
@@ -57,8 +57,8 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('bestbutton');
     assert.equal(button, find('button'));
-    assertMissingButton('interesting')
-    assertMissingButton('asd')
+    assertMissingButton(assert, 'interesting')
+    assertMissingButton(assert, 'asd')
 
     await render(hbs`
       <label for="mybutton">best button</label>
@@ -77,7 +77,7 @@ module('Integration | Helper | findButton', function(hooks) {
     `);
     button = await findButton('asd');
     assert.equal(button, find('button'));
-    assertMissingButton('asd')
+    assertMissingButton(assert, 'interesting')
   });
 
   test('find by title', async function(assert) {
