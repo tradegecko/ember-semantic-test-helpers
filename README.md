@@ -48,6 +48,7 @@ Then computes the label for each control using [Text alternative spec](https://w
 ```ts
 function findControl(label: string, value): Promise<void>
 ```
+
 Searches the page for the following
 ```js
 //use fillIn helper for these
@@ -74,6 +75,7 @@ let selectables = [
 ```
 
 Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
+
 ------------------------------------------------------------------------------
 
 ```
