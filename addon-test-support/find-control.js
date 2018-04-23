@@ -4,7 +4,6 @@ import computeAria from './utils/compute-aria';
 let inputs = [
   'input',
   'textarea',
-  'select',
   '[role="slider"]',
   '[role="spinbutton"]',
   '[role="textbox"]',
@@ -16,6 +15,7 @@ let toggles = [
 ]
 
 let selectables = [
+  'select',
   '[role="listbox"]',
   '[role="radiogroup"]',
 ]

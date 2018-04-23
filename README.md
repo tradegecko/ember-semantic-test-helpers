@@ -2,55 +2,82 @@
 
 Exposes semantic helpers based on https://github.com/emberjs/rfcs/pull/327 rfc
 
-currently supports
-
-### Definitions
-
-The **perceivable text** of a **link**, **button**, or other element may be
-found in any/all of the following locations **if-and-only-if the element is
-perceivable**:
-
-- Its `innerText` property
-- Its `aria-label` attribute
-- The **perceivable text** of the element identified by its `aria-labelledby` attribute
-
-The **perceivable label** of a **perceivable form control** may be found in
-any/all of the following locations:
-
-- Its `aria-label` attribute
-- The **perceivable text** of its **label**
-- The **perceivable text** of the element identified by its `aria-labelledby` attribute
-A **link** is one of the following:
-
-if `aria-labelledby` is present it `aria-label` will not be perceivable to screen readers and there for not to this addon.
-
-https://www.w3.org/TR/wai-aria-1.1/#aria-labelledby
-
-- `a`
+This addon defines a few ux/accisabile semantic helpers.
 
 
-A **button** is one of the following:
+##### High level
+```ts
+function click(label: string): Promise<void>
+```
+Internally uses `findButton`, then invokes `click` from `ember-test-helpers`
 
-- `button`
+```ts
+function select(label: string, value): Promise<void>
+```
+Internally uses `findControl`, then invokes a custom select function that will select based on label instead of value
 
+```ts
+function toggle(label: string): Promise<void>
+```
+Internally uses `findControl`, then invokes `click` from `ember-test-helpers` on that control
 
-An **input** is one of the following:
+```ts
+function fillIn(label: string, value): Promise<void>
+```
 
-- `input`
-- `textarea`
-- `select`
+Internally uses `findControl`, then invokes `fillIn` from `ember-test-helpers` on that control
 
+##### low level
+```ts
+function findButton(label: string, value): Promise<void>
+```
+Searches the page for the following
 
-A **switch** is one of the following:
+```js
+'button',
+'a',
+'[role="button"]',
+'input[type="reset"]',
+'input[type="button"]',
+'input[type="submit"]',
+'[role="link"]',
+'[role="menuitem"]',
+```
+Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
 
-currently does not support checkboxes
+```ts
+function findControl(label: string, value): Promise<void>
+```
+Searches the page for the following
+```js
+//use fillIn helper for these
+let inputs = [
+  'input',
+  'textarea',
+  '[role="slider"]',
+  '[role="spinbutton"]',
+  '[role="textbox"]',
+  '[contenteditable="true"]',
+]
 
+//use toggle helper for these
+let toggles = [
+  '[role="checkbox"]',
+]
 
-Installation
+//use select helper helper for these
+let selectables = [
+  'select',
+  '[role="listbox"]',
+  '[role="radiogroup"]',
+]
+```
+
+Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
 ------------------------------------------------------------------------------
 
 ```
-ember install my-addon
+ember install ember-semantic-test-helpers
 ```
 
 
@@ -69,16 +96,10 @@ test('Logging in', async function(assert) {
   await fillIn('Email', 'alice@example.com');
   await fillIn('Password', 'topsecret');
   await select('Some lable targeting a select', 123)
-  await toggle('keep me logged in', true)
+  await toggle('keep me logged in')
   await click('Log in');
 });
 ```
-
-Caveats
-------------------------------------------------------------------------------
-- selecting an option is currently based on the value this will change to the label.
-- currently does not support checkboxes
-- does use a little bit of jquery
 
 Contributing
 ------------------------------------------------------------------------------
