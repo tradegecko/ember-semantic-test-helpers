@@ -12,7 +12,8 @@ export default async function(control, value){
     if(option){
       throw new Error(`You tried to fill in using value "${value}" instead of the semantic label "${option.innerText}"`)
     }
-    throw new Error(`could not find option ${value}`)
+    let suggestions = options.map((option) => { return option.innerText }).join(',');
+    throw new Error(`Could not find option ${value}, possible options are ${suggestions}`)
   }
   return fillIn(control, option.attributes.value.value);
 }
