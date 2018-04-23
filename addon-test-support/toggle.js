@@ -1,4 +1,4 @@
-import { settled,  click } from '@ember/test-helpers';
+import { click } from '@ember/test-helpers';
 import findControl from './find-control';
 
 export default async function toggle(label) {

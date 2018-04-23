@@ -9,6 +9,5 @@ export default async function fillIn(label, value) {
   } catch (e) {
     throw new Error(`While selecting ${value} for ${label}. ${e.message}`)
   }
-
   return settled();
 }
