@@ -10,6 +10,7 @@ let selector = [
   'input[type="submit"]',
   '[role="link"]',
   '[role="menuitem"]',
+  'input[alt][type="image"]'
 ].join(',');
 
 export default function findButton(labelText) {
