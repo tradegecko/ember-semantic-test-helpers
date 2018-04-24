@@ -47,7 +47,7 @@ module('Integration | Helper | findControl', function(hooks) {
       try {
         await findControl('Label of control');
       } catch(e) {
-        assert.equal(e.message, `Could not find control labeled 'Label of control'`)
+        assert.equal(e.message, `Could not find control labelled 'Label of control'`)
       }
     });
   });

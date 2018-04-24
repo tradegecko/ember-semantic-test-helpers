@@ -9,7 +9,7 @@ export default async function findButton(selector, labelText, name) {
     if(e instanceof AmbiguousLabel){
       throw new AmbiguousLabel(`Multiple ${name} labelled ${labelText} where found`)
     } else if(e instanceof MissingObject){
-      throw new MissingObject(`Could not find ${name} labeled '${labelText}'`)
+      throw new MissingObject(`Could not find ${name} labelled '${labelText}'`)
     }
   }
 }
