@@ -1,5 +1,4 @@
-import { findAll } from "@ember/test-helpers";
-import computeAria from './utils/compute-aria';
+import sharedFind from './utils/shared-find';
 
 let inputs = [
   'input',
@@ -23,11 +22,5 @@ let selectables = [
 let controlSelector = [inputs.join(','), toggles.join(','), selectables.join(',')].join(',');
 
 export default async function (labelText) {
-  let control = findAll(controlSelector).find( (element) => {
-    return computeAria(element) === labelText.toLowerCase()
-  });
-  if(!control){
-    throw new Error(`Could not find control labeled '${labelText}'`)
-  }
-  return control
+  return await sharedFind(controlSelector, labelText, 'control');
 }
