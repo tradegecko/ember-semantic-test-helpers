@@ -49,7 +49,7 @@ export default function(element){
   }
 
   if(label){
-    label = label.toLowerCase();
+    label = label.toLowerCase().trim();
   }
 
   return label
