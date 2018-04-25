@@ -33,6 +33,7 @@ module('Integration | Helper | findControl', function(hooks) {
     });
 
     test('it does not find a div that is targeted by label', async function(assert) {
+      let control;
       await render(hbs`
         <label for="control">Label of control</label>
         <div class="day-slider">
@@ -45,10 +46,12 @@ module('Integration | Helper | findControl', function(hooks) {
         </div>
       `);
       try {
-        await findControl('Label of control');
+        control = await findControl('Label of control');
       } catch(e) {
         assert.equal(e.message, `Could not find control labelled 'Label of control'`)
       }
+      console.log('hello world')
+      console.log(control);
     });
   });
 
