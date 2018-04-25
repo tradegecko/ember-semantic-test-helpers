@@ -8,7 +8,11 @@
     "ember testing"
   ],
   "license": "MIT",
-  "author": "",
+  "author": {
+     "name": "billybonks",
+     "email": "sebastienstettler@gmail.com",
+     "website": "www.unearthing.io"
+   },
   "directories": {
     "doc": "doc",
     "test": "tests"
