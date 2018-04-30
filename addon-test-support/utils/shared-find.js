@@ -1,14 +1,15 @@
-import findObject from '../find-object';
 import AmbiguousLabel from '../errors/ambiguous-label';
 import MissingObject from '../errors/missing-object';
 
-export default function findButton(selector, labelText, name) {
+export default function SharedFind(findFunc, labelText, name) {
   try {
-    return findObject(selector, labelText);
-  } catch(e){
-    if(e instanceof AmbiguousLabel){
+    let objects = findFunc(labelText);
+    if(objects.length > 1){
       throw new AmbiguousLabel(`Multiple ${name} labelled ${labelText} where found`)
-    } else if(e instanceof MissingObject){
+    }
+    return objects[0]
+  } catch(e){
+    if(e instanceof MissingObject){
       throw new MissingObject(`Could not find ${name} labelled '${labelText}'`)
     }
   }
