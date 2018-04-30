@@ -1,7 +1,7 @@
 import { fillIn as rawFillin } from '@ember/test-helpers';
-import findControl from './find-control';
+import { findControl } from './finders';
 
 export default async function fillIn(label, value) {
-  let control = await findControl(label);
+  let control = findControl(label);
   return rawFillin(control, value)
 }

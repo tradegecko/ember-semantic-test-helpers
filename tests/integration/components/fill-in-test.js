@@ -9,7 +9,6 @@ module('Integration | Helper | fillIn', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it finds by label for attribute', async function(assert) {
-    // Template block usage:
     await render(hbs`
       <label for='control'>Location</label>
       {{input id="control" type="text"}}
@@ -21,7 +20,6 @@ module('Integration | Helper | fillIn', function(hooks) {
 
 
   test('it finds aria-label attribute', async function(assert) {
-    // Template block usage:
     await render(hbs`
       <input aria-label="location" type="text" />
     `);
@@ -32,7 +30,6 @@ module('Integration | Helper | fillIn', function(hooks) {
 
 
   test('it finds aria-labelledby attribute', async function(assert) {
-    // Template block usage:
     await render(hbs`
       <div id="billing">Billing</div>
       <div id="name">Name</div>
@@ -44,7 +41,6 @@ module('Integration | Helper | fillIn', function(hooks) {
   });
 
   test('if aria-labelledby is present it will ignore aria-label attribute', async function(assert) {
-    // Template block usage:
     await render(hbs`
       <div id="billing">Billing</div>
       <div id="name">Name</div>
