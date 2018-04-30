@@ -21,9 +21,9 @@ import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
 import { click, fillIn, select, toggle } from 'ember-semantic-test-helpers/test-support';
 
-module('Login', function(hooks) { 
+module('Login', function(hooks) {
   setupApplicationTest(hooks);
-  
+
   test('Logging in', async function(assert) {
     await visit('/login');
     await fillIn('Email', 'alice@example.com');
@@ -64,7 +64,7 @@ Internally uses `findControl`, then invokes `fillIn` from `ember-test-helpers` o
 
 #### low level
 ```ts
-function findButton(label: string, value): Promise<void>
+function findButton(label: string, value): HTMLElement
 ```
 Searches the page for the following
 
@@ -81,7 +81,7 @@ Searches the page for the following
 Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
 
 ```ts
-function findControl(label: string, value): Promise<void>
+function findControl(label: string, value): HTMLElement
 ```
 
 Searches the page for the following
