@@ -6,7 +6,7 @@ import { findControl } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
 
 async function assertControl(assert){
-  let control = await findControl('Label of control');
+  let control = findControl('Label of control');
   let input = find('#control');
   assert.equal(control, input);
 }
@@ -45,7 +45,7 @@ module('Integration | Helper | findControl', function(hooks) {
         </div>
       `);
       try {
-        await findControl('Label of control');
+        findControl('Label of control');
       } catch(e) {
         assert.equal(e.message, `Could not find control labelled 'Label of control'`)
       }

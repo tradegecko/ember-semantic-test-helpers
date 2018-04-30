@@ -8,7 +8,7 @@ import { find } from 'ember-test-helpers';
 async function assertMissingButton(assert, text){
   let button = null;
   try{
-    button = await findButton(text);
+    button =  findButton(text);
   } catch(e) {
     assert.equal(e.message, `Could not find button labelled '${text}'`)
   }
@@ -26,7 +26,7 @@ module('Integration | Helper | findButton', function(hooks) {
       <label for="mybutton">best button</label>
       <button id="mybutton" aria-labelledby="span1 span2" aria-label="qqq" title="interesting">asd</button>
     `);
-    button = await findButton('hello world');
+    button = findButton('hello world');
     assert.equal(button, find('button'));
     assertMissingButton(assert, 'qqq')
     assertMissingButton(assert, 'interesting')
@@ -40,7 +40,7 @@ module('Integration | Helper | findButton', function(hooks) {
       <label for="mybutton">best button</label>
       <button id="mybutton" aria-label="qqq" title="interesting">asd</button>
     `);
-    let button = await findButton('qqq');
+    let button = findButton('qqq');
     assert.equal(button, find('button'));
     assertMissingButton(assert, 'interesting')
     assertMissingButton(assert, 'asd')
@@ -55,7 +55,7 @@ module('Integration | Helper | findButton', function(hooks) {
       <label for="mybutton">button</label>
       <button id="mybutton" title="interesting">asd</button>
     `);
-    button = await findButton('bestbutton');
+    button = findButton('bestbutton');
     assert.equal(button, find('button'));
     assertMissingButton(assert, 'interesting')
     assertMissingButton(assert, 'asd')
@@ -64,7 +64,7 @@ module('Integration | Helper | findButton', function(hooks) {
       <label for="mybutton">best button</label>
       <button id="mybutton" title="interesting">asd</button>
     `);
-    button = await findButton('best button');
+    button = findButton('best button');
     assert.equal(button, find('button'));
   });
 
@@ -75,7 +75,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <button id="mybutton" title="interesting">asd</button>
     `);
-    button = await findButton('asd');
+    button = findButton('asd');
     assert.equal(button, find('button'));
     assertMissingButton(assert, 'interesting')
   });
@@ -86,7 +86,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <button id="mybutton" title="interesting"></button>
     `);
-    button = await findButton('interesting');
+    button = findButton('interesting');
     assert.equal(button, find('button'));
   });
 
@@ -94,7 +94,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <a href="#">some link</a>
     `);
-    let button = await findButton('some link');
+    let button = findButton('some link');
     assert.equal(button, find('a'));
   });
 
@@ -102,7 +102,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <span role="button" tabindex="0" onclick="handleBtnClick()" onKeyPress="handleBtnKeyPress()">Save</span>
     `);
-    let button = await findButton('save');
+    let button = findButton('save');
     assert.equal(button, find('[role="button"]'));
   });
 
@@ -110,7 +110,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <input type="reset" value="Reset the form">
     `);
-    let button = await findButton('Reset the form');
+    let button = findButton('Reset the form');
     assert.equal(button, find('input[type="reset"]'));
   });
 
@@ -118,7 +118,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <input type="button" title="a button" value="Click me">
     `);
-    let button = await findButton('Click me');
+    let button = findButton('Click me');
     assert.equal(button, find('input[type="button"]'));
   });
 
@@ -127,7 +127,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <input type="submit" title="a button" value="Submit">
     `);
-    let button = await findButton('suBmit');
+    let button = findButton('suBmit');
     assert.equal(button, find('input[type="submit"]'));
   });
 
@@ -135,7 +135,7 @@ module('Integration | Helper | findButton', function(hooks) {
     await render(hbs`
       <div role="link">A link</div>
     `);
-    let button = await findButton('A link');
+    let button = findButton('A link');
     assert.equal(button, find('[role="link"]'));
   });
 
@@ -145,7 +145,7 @@ module('Integration | Helper | findButton', function(hooks) {
         W3C Web Accessibility Initiative
       </a>
     `);
-    let button = await findButton('W3C Web Accessibility Initiative');
+    let button = findButton('W3C Web Accessibility Initiative');
     assert.equal(button, find('[role="menuitem"]'));
   });
 });
