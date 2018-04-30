@@ -12,6 +12,6 @@ let selector = [
   'input[alt][type="image"]'
 ].join(',');
 
-export default async function findButton(labelText) {
-  return await sharedFind(selector, labelText, 'button');
+export default function findButton(labelText) {
+  return sharedFind(selector, labelText, 'button');
 }

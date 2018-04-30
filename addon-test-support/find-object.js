@@ -3,7 +3,7 @@ import computeAria from './utils/compute-aria';
 import AmbiguousLabel from './errors/ambiguous-label';
 import MissingObject from './errors/missing-object';
 
-export default async function (selector, labelText) {
+export default function (selector, labelText) {
   let objects = findAll(selector).filter( (element) => {
     return computeAria(element) === labelText.toLowerCase()
   });

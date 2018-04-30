@@ -21,6 +21,6 @@ let selectables = [
 
 let controlSelector = [inputs.join(','), toggles.join(','), selectables.join(',')].join(',');
 
-export default async function (labelText) {
-  return await sharedFind(controlSelector, labelText, 'control');
+export default function (labelText) {
+  return sharedFind(controlSelector, labelText, 'control');
 }
