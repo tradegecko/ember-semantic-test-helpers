@@ -1,7 +1,7 @@
-import AmbiguousLabel from '../errors/ambiguous-label';
-import MissingObject from '../errors/missing-object';
-import computeAria from './../utils/compute-aria';
-import { buttonQuery, formControlQuery } from './../dom/selectors'
+import AmbiguousLabel from './errors/ambiguous-label';
+import MissingObject from './errors/missing-object';
+import computeAria from './utils/compute-aria';
+import { buttonQuery, formControlQuery } from './dom/selectors'
 import { findAll } from "@ember/test-helpers";
 
 
