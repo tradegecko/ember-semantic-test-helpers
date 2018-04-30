@@ -1,5 +1,7 @@
 import { buttonQuery, formControlQuery } from './dom/selectors'
 import findByAria from './dom/find-by-aria';
+import findByLabel from './dom/find-by-label';
+import findByName from './dom/find-by-name';
 import notify from './notify'
 
 export function findButton(labelText){
