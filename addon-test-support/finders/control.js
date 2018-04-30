@@ -1,5 +1,5 @@
-import sharedFind from './utils/shared-find';
-import findControls from './find-controls';
+import sharedFind from './shared';
+import findControls from './controls';
 
 export default function (labelText) {
   return sharedFind(findControls, labelText, 'control');

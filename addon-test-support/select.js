@@ -1,5 +1,5 @@
 import { settled } from '@ember/test-helpers';
-import findControl from './find-control';
+import findControl from './finders/control';
 import fillInSelect from './utils/fillin-select';
 
 export default async function fillIn(label, value) {
