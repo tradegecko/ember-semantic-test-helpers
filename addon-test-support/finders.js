@@ -1,8 +1,7 @@
 import AmbiguousLabel from './errors/ambiguous-label';
 import MissingObject from './errors/missing-object';
-import computeAria from './dom/compute-aria';
 import { buttonQuery, formControlQuery } from './dom/selectors'
-import { findAll } from "@ember/test-helpers";
+import findByAria from './dom/find-by-aria';
 
 
 export function findButton(labelText){
@@ -36,9 +35,7 @@ export function findObject(selector, labelText, type) {
 }
 
 export function findObjects(selector, labelText, type='object') {
-  let objects = findAll(selector).filter( (element) => {
-    return computeAria(element) === labelText.toLowerCase()
-  });
+  let objects = findByAria(selector, labelText)
   if(objects.length == 0){
     throw new MissingObject(`No ${type} labelled ${labelText} found`);
   }
