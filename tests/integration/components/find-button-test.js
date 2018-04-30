@@ -4,6 +4,7 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { findButton } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
+import enableErrors from './../../helpers/enable-errors';
 
 async function assertMissingButton(assert, text){
   let button = null;
@@ -17,6 +18,7 @@ async function assertMissingButton(assert, text){
 }
 module('Integration | Helper | findButton', function(hooks) {
   setupRenderingTest(hooks);
+  enableErrors(hooks);
 
   test('find by aria-labelledby', async function(assert) {
     let button = null;

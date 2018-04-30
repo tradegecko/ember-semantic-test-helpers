@@ -3,9 +3,11 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { toggle } from 'ember-semantic-test-helpers/test-support';
+import enableErrors from './../../helpers/enable-errors';
 
 module('Integration | Helper | toggle', function(hooks) {
   setupRenderingTest(hooks);
+  enableErrors(hooks);
 
   test('fills in using label', async function(assert) {
     await render(hbs`

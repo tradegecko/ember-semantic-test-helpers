@@ -4,9 +4,11 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { select } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
+import enableErrors from './../../helpers/enable-errors';
 
 module('Integration | Helper | select', function(hooks) {
   setupRenderingTest(hooks);
+  enableErrors(hooks);
 
   test('fills in using label', async function(assert) {
     await render(hbs`

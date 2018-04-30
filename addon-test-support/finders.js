@@ -1,8 +1,6 @@
-import AmbiguousLabel from './errors/ambiguous-label';
-import MissingObject from './errors/missing-object';
 import { buttonQuery, formControlQuery } from './dom/selectors'
 import findByAria from './dom/find-by-aria';
-
+import notify from './notify'
 
 export function findButton(labelText){
   return findObject(buttonQuery, labelText, 'button');
@@ -21,23 +19,17 @@ export default function findControls(labelText) {
 }
 
 export function findObject(selector, labelText, type) {
-  try {
-    let objects = findObjects(selector, labelText)
-    if(objects.length > 1){
-      throw new AmbiguousLabel(`Multiple ${type} labelled ${labelText} where found`)
-    }
-    return objects[0]
-  } catch(e){
-    if(e instanceof MissingObject){
-      throw new MissingObject(`Could not find ${type} labelled '${labelText}'`)
-    }
+  let objects = findObjects(selector, labelText, type)
+  if(objects.length > 1){
+    notify('ambiguousLabel', type, labelText);
   }
+  return objects[0];
 }
 
 export function findObjects(selector, labelText, type='object') {
   let objects = findByAria(selector, labelText)
   if(objects.length == 0){
-    throw new MissingObject(`No ${type} labelled ${labelText} found`);
+    notify('ariaNotFound', type, labelText);
   }
   return objects;
 }

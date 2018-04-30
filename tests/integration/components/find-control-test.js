@@ -4,6 +4,7 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { findControl } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
+import enableErrors from './../../helpers/enable-errors';
 
 async function assertControl(assert){
   let control = findControl('Label of control');
@@ -13,6 +14,7 @@ async function assertControl(assert){
 
 module('Integration | Helper | findControl', function(hooks) {
   setupRenderingTest(hooks);
+  enableErrors(hooks);
 
   module('Percivable by label', function(){
 
