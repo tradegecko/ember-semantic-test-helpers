@@ -1,10 +1,8 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import setupRenderingTest from './../../helpers/setup-rendering-test';
+import { module, test } from 'qunit';
+import { render, find } from '@ember/test-helpers';
 import { findControl } from 'ember-semantic-test-helpers/test-support';
-import { find } from 'ember-test-helpers';
-import enableErrors from './../../helpers/enable-errors';
 
 async function assertControl(assert){
   let control = findControl('Label of control');
@@ -13,8 +11,7 @@ async function assertControl(assert){
 }
 
 module('Integration | Helper | findControl', function(hooks) {
-  setupRenderingTest(hooks);
-  enableErrors(hooks);
+  setupRenderingTest(hooks, 0);
 
   module('Percivable by label', function(){
 

@@ -1,10 +1,8 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import setupRenderingTest from './../../helpers/setup-rendering-test';
+import { module, test } from 'qunit';
+import { render, find } from '@ember/test-helpers';
 import { findButton } from 'ember-semantic-test-helpers/test-support';
-import { find } from 'ember-test-helpers';
-import enableErrors from './../../helpers/enable-errors';
 
 async function assertMissingButton(assert, text){
   let button = null;
@@ -17,8 +15,7 @@ async function assertMissingButton(assert, text){
 
 }
 module('Integration | Helper | findButton', function(hooks) {
-  setupRenderingTest(hooks);
-  enableErrors(hooks);
+  setupRenderingTest(hooks, 0);
 
   test('find by aria-labelledby', async function(assert) {
     let button = null;

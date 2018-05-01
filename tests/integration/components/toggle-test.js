@@ -1,13 +1,11 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import setupRenderingTest from './../../helpers/setup-rendering-test';
+import { module, test } from 'qunit';
+import { render } from '@ember/test-helpers';
 import { toggle } from 'ember-semantic-test-helpers/test-support';
-import enableErrors from './../../helpers/enable-errors';
 
 module('Integration | Helper | toggle', function(hooks) {
-  setupRenderingTest(hooks);
-  enableErrors(hooks);
+  setupRenderingTest(hooks, 0);
 
   test('fills in using label', async function(assert) {
     await render(hbs`
