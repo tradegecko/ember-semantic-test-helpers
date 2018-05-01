@@ -1,4 +1,4 @@
-import { findAll } from 'ember-test-selectors';
+import { findAll } from '@ember/test-helpers';
 
 export default function findByName(selector, text) {
   selector = `${selector} [name="${text}"]`;

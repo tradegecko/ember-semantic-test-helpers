@@ -1,8 +1,6 @@
-import { buttonQuery, formControlQuery } from './dom/selectors'
-import findByAria from './dom/find-by-aria';
-import findByLabel from './dom/find-by-label';
-import findByName from './dom/find-by-name';
-import notify from './notify'
+import { buttonQuery, formControlQuery } from './dom/selectors';
+import { stratergies } from './config';
+import notify from './notify';
 
 export function findButton(labelText){
   return findObject(buttonQuery, labelText, 'button');
@@ -28,10 +26,24 @@ export function findObject(selector, labelText, type) {
   return objects[0];
 }
 
-export function findObjects(selector, labelText, type='object') {
-  let objects = findByAria(selector, labelText)
+export function findObjects(selector, labelText, type='object', index=0) {
+  let key, strategy;
+  if(!key){
+    if(stratergies.length === (index + 1)) {
+      return
+    }
+    key = stratergies[index][0]
+    strategy = stratergies[index][1]
+  }
+
+  let objects = strategy(selector, labelText)
   if(objects.length == 0){
-    notify('ariaNotFound', type, labelText);
+    notify(key, type, labelText);
+    objects = findObjects(selector, labelText, type, index + 1)
+    if(index == stratergies.length-1){
+      throw new Error('reached the end')
+      //notify('missingObject', type, labelText);
+    }
   }
   return objects;
 }
