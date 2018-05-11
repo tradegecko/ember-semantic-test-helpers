@@ -28,7 +28,7 @@ module('Login', function(hooks) {
     await visit('/login');
     await fillIn('Email', 'alice@example.com');
     await fillIn('Password', 'topsecret');
-    await select('Some lable targeting a select', 123)
+    await select('Some label targeting a select', 123)
     await toggle('keep me logged in')
     await click('Log in');
   });

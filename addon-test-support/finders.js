@@ -1,5 +1,5 @@
 import { buttonQuery, formControlQuery } from './dom/selectors';
-import { stratergies } from './config';
+import { strategies } from './config';
 import notify from './notify';
 
 export function findButton(labelText){
@@ -31,20 +31,19 @@ export function findObject(selector, labelText, type) {
 export function findObjects(selector, labelText, type='object', index=0) {
   let key, strategy;
   if(!key){
-    if(stratergies.length === index) {
+    if(strategies.length === index) {
       return
     }
-    key = stratergies[index][0]
-    strategy = stratergies[index][1]
+    key = strategies[index][0]
+    strategy = strategies[index][1]
   }
 
   let objects = strategy(selector, labelText)
   if(!objects || objects.length == 0){
     objects = findObjects(selector, labelText, type, index + 1)
-    if(index == stratergies.length-1){
+    if(index == strategies.length-1){
       return
     }
-    //return;
   } else if (index != 0) {
     notify(key, type, labelText);
   }

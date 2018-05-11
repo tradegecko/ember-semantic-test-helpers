@@ -66,7 +66,7 @@ module('Integration | Helper | fallbacks', function(hooks) {
     });
   });
 
-  module('percivedByName', function(hooks){
+  module('perceivedByName', function(hooks){
     hooks.beforeEach(async function() {
 
       await render(hbs`
@@ -74,19 +74,19 @@ module('Integration | Helper | fallbacks', function(hooks) {
       `);
     });
     module('level 0', function(hooks){
-      enableErrors(hooks, {percivedByName:0});
+      enableErrors(hooks, {perceivedByName:0});
       test('Does not fill input, produces an error', async function(assert){
         try {
           await fillIn('location', 'awesomerable');
         } catch(e){
           assert.equal(e.message, 'Control location found through input name attribute')
-          assert.equal(e.constructor.name, 'PercivedByName')
+          assert.equal(e.constructor.name, 'PerceivedByName')
         }
       });
     });
 
     module('level 1', async function(hooks){
-      enableErrors(hooks, {percivedByName:1});
+      enableErrors(hooks, {perceivedByName:1});
       test('Fills input and produces a warning', async function(assert){
         let spy = this.sandbox.spy(console, 'warn');
         await fillIn('location', 'awesomerable');
@@ -98,7 +98,7 @@ module('Integration | Helper | fallbacks', function(hooks) {
     });
 
     module('level 2', function(hooks){
-      enableErrors(hooks, {percivedByName:2});
+      enableErrors(hooks, {perceivedByName:2});
       test('Fills input, silently', async function(assert){
         let spy = this.sandbox.spy(console, 'warn');
         await fillIn('location', 'awesomerable');
