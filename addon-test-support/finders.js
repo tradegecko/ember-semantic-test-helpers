@@ -29,7 +29,7 @@ export function findObject(selector, labelText, type) {
 export function findObjects(selector, labelText, type='object', index=0) {
   let key, strategy;
   if(!key){
-    if(stratergies.length === (index + 1)) {
+    if(stratergies.length === index) {
       return
     }
     key = stratergies[index][0]
@@ -37,13 +37,15 @@ export function findObjects(selector, labelText, type='object', index=0) {
   }
 
   let objects = strategy(selector, labelText)
-  if(objects.length == 0){
-    notify(key, type, labelText);
+  if(!objects || objects.length == 0){
     objects = findObjects(selector, labelText, type, index + 1)
     if(index == stratergies.length-1){
       throw new Error('reached the end')
       //notify('missingObject', type, labelText);
     }
+    //return;
+  } else if (index != 0) {
+    notify(key, type, labelText);
   }
   return objects;
 }
