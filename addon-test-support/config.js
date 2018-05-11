@@ -1,5 +1,5 @@
 import InvalidFor from './errors/invalid-for';
-import PercivedByName from './errors/percived-by-name';
+import PerceivedByName from './errors/perceived-by-name';
 import MissingObject from './errors/missing-object';
 import findByAria from './dom/find-by-aria';
 import findByLabel from './dom/find-by-label';
@@ -7,19 +7,19 @@ import findByName from './dom/find-by-name';
 
 export default {
   invalidFor: 1,
-  percivedByName: 1,
+  perceivedByName: 1,
 }
 
 
 export let errors = {
   invalidFor: InvalidFor,
-  percivedByName: PercivedByName,
+  perceivedByName: PerceivedByName,
   missingObject: MissingObject,
 }
 
 export let buildMessage = function(error, type, labelText){
   switch(error){
-    case 'percivedByName' :
+    case 'perceivedByName' :
       return `Control ${labelText} found through input name attribute`;
     case 'invalidFor' :
       return `Control ${labelText} found through invalid label for relationship`;
@@ -34,9 +34,9 @@ export let buildMessage = function(error, type, labelText){
 let functions = {
   ariaNotFound: findByAria,
   invalidFor: findByLabel,
-  percivedByName: findByName
+  perceivedByName: findByName
 }
 
-export let stratergies = Object.keys(functions).map(function(key){
+export let strategies = Object.keys(functions).map(function(key){
   return [key,functions[key]];
 });
