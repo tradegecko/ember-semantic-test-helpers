@@ -33,6 +33,9 @@ module('Integration | Helper | fallbacks', function(hooks) {
         try {
           await fillIn('Location', 'awesomerable');
         } catch(e){
+          console.log(e)
+          console.log(e.message)
+          console.log('ALLOOOO')
           assert.equal(e.message, 'Control Location found through invalid label for relationship')
           assert.equal(e.constructor.name, 'InvalidFor')
         }
