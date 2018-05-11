@@ -2,6 +2,9 @@ import {default as config, errors, buildMessage } from './config';
 
 export default function(rule,  type, labelText){
   let level = config[rule];
+  if(isNaN(level)){
+    level = 0
+  }
   let message = buildMessage(rule, type, labelText);
   switch(level){
     case 0:

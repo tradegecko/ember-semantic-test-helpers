@@ -46,7 +46,7 @@ module('Integration | Helper | findControl', function(hooks) {
       try {
         findControl('Label of control');
       } catch(e) {
-        assert.equal(e.message, `Could not find control labelled 'Label of control'`)
+        assert.equal(e.message, `Control Label of control found through invalid label for relationship`)
       }
     });
   });

@@ -22,6 +22,8 @@ export function findObject(selector, labelText, type) {
   let objects = findObjects(selector, labelText, type)
   if(objects.length > 1){
     notify('ambiguousLabel', type, labelText);
+  } else if(!objects.length) {
+    notify('missingObject', type, labelText)
   }
   return objects[0];
 }
@@ -40,12 +42,11 @@ export function findObjects(selector, labelText, type='object', index=0) {
   if(!objects || objects.length == 0){
     objects = findObjects(selector, labelText, type, index + 1)
     if(index == stratergies.length-1){
-      throw new Error('reached the end')
-      //notify('missingObject', type, labelText);
+      return
     }
     //return;
   } else if (index != 0) {
     notify(key, type, labelText);
   }
-  return objects;
+  return objects || [];
 }

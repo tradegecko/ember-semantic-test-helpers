@@ -35,7 +35,7 @@ export default function(element){
   }
 
   //try innerText for buttons
-  if(element.innerText){
+  if(!label && element.innerText){
     label = element.innerText;
   }
 
