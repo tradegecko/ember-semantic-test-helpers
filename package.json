@@ -9,10 +9,10 @@
   ],
   "license": "MIT",
   "author": {
-     "name": "billybonks",
-     "email": "sebastienstettler@gmail.com",
-     "website": "www.unearthing.io"
-   },
+    "name": "billybonks",
+    "email": "sebastienstettler@gmail.com",
+    "website": "www.unearthing.io"
+  },
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -49,6 +49,7 @@
     "ember-load-initializers": "^1.0.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-resolver": "^4.0.0",
+    "ember-sinon": "^2.1.0",
     "ember-source": "~3.1.0",
     "ember-source-channel-url": "^1.0.1",
     "ember-try": "^0.2.23",

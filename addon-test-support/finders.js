@@ -1,8 +1,6 @@
-import AmbiguousLabel from './errors/ambiguous-label';
-import MissingObject from './errors/missing-object';
-import { buttonQuery, formControlQuery } from './dom/selectors'
-import findByAria from './dom/find-by-aria';
-
+import { buttonQuery, formControlQuery } from './dom/selectors';
+import { strategies } from './config';
+import notify from './notify';
 
 export function findButton(labelText){
   return findObject(buttonQuery, labelText, 'button');
@@ -21,23 +19,33 @@ export default function findControls(labelText) {
 }
 
 export function findObject(selector, labelText, type) {
-  try {
-    let objects = findObjects(selector, labelText)
-    if(objects.length > 1){
-      throw new AmbiguousLabel(`Multiple ${type} labelled ${labelText} where found`)
-    }
-    return objects[0]
-  } catch(e){
-    if(e instanceof MissingObject){
-      throw new MissingObject(`Could not find ${type} labelled '${labelText}'`)
-    }
+  let objects = findObjects(selector, labelText, type)
+  if(objects.length > 1){
+    notify('ambiguousLabel', type, labelText);
+  } else if(!objects.length) {
+    notify('missingObject', type, labelText)
   }
+  return objects[0];
 }
 
-export function findObjects(selector, labelText, type='object') {
-  let objects = findByAria(selector, labelText)
-  if(objects.length == 0){
-    throw new MissingObject(`No ${type} labelled ${labelText} found`);
+export function findObjects(selector, labelText, type='object', index=0) {
+  let key, strategy;
+  if(!key){
+    if(strategies.length === index) {
+      return
+    }
+    key = strategies[index][0]
+    strategy = strategies[index][1]
   }
-  return objects;
+
+  let objects = strategy(selector, labelText)
+  if(!objects || objects.length == 0){
+    objects = findObjects(selector, labelText, type, index + 1)
+    if(index == strategies.length-1){
+      return
+    }
+  } else if (index != 0) {
+    notify(key, type, labelText);
+  }
+  return objects || [];
 }

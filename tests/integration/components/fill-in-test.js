@@ -1,12 +1,12 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import setupRenderingTest from './../../helpers/setup-rendering-test';
+import { module, test } from 'qunit';
+import { render } from '@ember/test-helpers';
 import { fillIn } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
 
 module('Integration | Helper | fillIn', function(hooks) {
-  setupRenderingTest(hooks);
+  setupRenderingTest(hooks, 0);
 
   test('it finds by label for attribute', async function(assert) {
     await render(hbs`

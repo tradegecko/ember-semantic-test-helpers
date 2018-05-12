@@ -1,9 +1,8 @@
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
+import setupRenderingTest from './../../helpers/setup-rendering-test';
+import { module, test } from 'qunit';
+import { render, find } from '@ember/test-helpers';
 import { findControl } from 'ember-semantic-test-helpers/test-support';
-import { find } from 'ember-test-helpers';
 
 async function assertControl(assert){
   let control = findControl('Label of control');
@@ -12,7 +11,7 @@ async function assertControl(assert){
 }
 
 module('Integration | Helper | findControl', function(hooks) {
-  setupRenderingTest(hooks);
+  setupRenderingTest(hooks, 0);
 
   module('Percivable by label', function(){
 
@@ -47,7 +46,7 @@ module('Integration | Helper | findControl', function(hooks) {
       try {
         findControl('Label of control');
       } catch(e) {
-        assert.equal(e.message, `Could not find control labelled 'Label of control'`)
+        assert.equal(e.message, `Control Label of control found through invalid label for relationship`)
       }
     });
   });
