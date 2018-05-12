@@ -35,6 +35,50 @@ module('Login', function(hooks) {
 });
 ```
 
+Fallback
+------------------------------------------------------------------------------
+We cannot expect every app to be 100% aria compliant at the moment, for that reason,
+their are fallback element finders.
+
+
+1. perceivedByName
+Will search for controls using the name attribute
+```html
+<input name="hello" />
+```
+2. invalidFor
+label[for] can only target form elements, but it is common that they target `div` elements.
+It will deeply search that div for the first of the following:
+
+- fillIn -> text control
+- select -> select control
+- toggle -> toggleable control
+
+exact definitions of these can be found `addon-test-support/dom/types`;
+
+```html
+<label for="my-cutom-control" />
+<div id="my-custom-control"><input></div>
+```
+
+By default if the control is found using these strategies a warning will be logged,
+this behaviour can be configured.
+
+```js
+import { config } from 'ember-semantic-test-helpers/test-support';
+
+config.perceivedByName = <level>
+config.invalidFor = <level>
+```
+
+the levels:
+- 0: will throw an error.
+- 1: will throw a warning.
+- 2: will silence.
+
+ideally these warnings are fixed as one would deprecations and once fixed you can,
+set the level to 0, so that there are no more regressions.
+
 API
 ------------------------------------------------------------------------------
 
