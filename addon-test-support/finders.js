@@ -1,15 +1,15 @@
-import { buttonQuery, inputQuery, toggleQuery, selectQuery } from './dom/selectors';
+import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
 import { strategies } from './config';
 import notify from './notify';
 
 let queryHash = {
-  input: inputQuery,
+  text: textQuery,
   toggle: toggleQuery,
   select: selectQuery,
 }
 
 
-let _findControl = function (method, labelText, type){
+let _findControl = function (method, labelText, type = ""){
   let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
   return method(queryHash[type], labelText, `${humanizedType} Control`)
 }

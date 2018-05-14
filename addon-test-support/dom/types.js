@@ -11,7 +11,7 @@ export let button = [
 ];
 
 
-export let input = [
+export let text = [
   'input',
   'textarea',
   '[role="slider"]',
