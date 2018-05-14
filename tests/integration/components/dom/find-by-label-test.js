@@ -3,7 +3,7 @@ import { setupRenderingTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import { render } from '@ember/test-helpers';
 import findByLabel from 'ember-semantic-test-helpers/test-support/dom/find-by-label';
-import { inputQuery } from 'ember-semantic-test-helpers/test-support/dom/selectors';
+import { textQuery } from 'ember-semantic-test-helpers/test-support/dom/selectors';
 
 module('Integration | Helper | findByLabel', function(hooks) {
   setupRenderingTest(hooks);
@@ -16,7 +16,7 @@ module('Integration | Helper | findByLabel', function(hooks) {
       </div>
       <textarea id="unexpected" />
     `);
-    let foundInput = findByLabel(inputQuery, 'hello');
+    let foundInput = findByLabel(textQuery, 'hello');
     let expected = document.querySelectorAll("[name='expected']")[0];
     assert.equal(foundInput.length, 1);
     assert.equal(foundInput[0], expected);
@@ -35,7 +35,7 @@ module('Integration | Helper | findByLabel', function(hooks) {
        </div>
       </div>
     `);
-    let foundInput = findByLabel(inputQuery, 'Label of control');
+    let foundInput = findByLabel(textQuery, 'Label of control');
     let expected = document.querySelectorAll('#control')[0];
     assert.equal(foundInput.length, 1);
     assert.equal(foundInput[0], expected);

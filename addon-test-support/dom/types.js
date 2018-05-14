@@ -11,7 +11,7 @@ export let button = [
 ];
 
 
-export let input = [
+export let text = [
   'input',
   'textarea',
   '[role="slider"]',
@@ -22,6 +22,7 @@ export let input = [
 
 export let toggle = [
   '[role="checkbox"]',
+  '[type="checkbox"]',
 ]
 
 export let select = [

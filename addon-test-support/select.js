@@ -3,7 +3,7 @@ import { findControl } from './finders';
 import fillInSelect from './fillin-select';
 
 export default async function fillIn(label, value) {
-  let control = await findControl(label);
+  let control = await findControl(label, 'select');
   try {
     await fillInSelect(control, value)
   } catch (e) {

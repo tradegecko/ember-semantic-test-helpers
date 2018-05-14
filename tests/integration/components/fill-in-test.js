@@ -49,7 +49,7 @@ module('Integration | Helper | fillIn', function(hooks) {
     try {
       await fillIn('Location', 'expensive');
     } catch(e) {
-      assert.equal(e.message, `Could not find control labelled 'Location'`)
+      assert.equal(e.message, `Could not find Text Control labelled 'Location'`)
     }
   });
 });

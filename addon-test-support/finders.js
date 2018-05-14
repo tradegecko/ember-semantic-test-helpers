@@ -1,6 +1,18 @@
-import { buttonQuery, formControlQuery } from './dom/selectors';
+import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
 import { strategies } from './config';
 import notify from './notify';
+
+let queryHash = {
+  text: textQuery,
+  toggle: toggleQuery,
+  select: selectQuery,
+}
+
+
+let _findControl = function (method, labelText, type = ""){
+  let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
+  return method(queryHash[type], labelText, `${humanizedType} Control`)
+}
 
 export function findButton(labelText){
   return findObject(buttonQuery, labelText, 'button');
@@ -10,12 +22,12 @@ export function findButtons(labelText){
   return findObjects(buttonQuery, labelText, 'button');
 }
 
-export function findControl(labelText) {
-  return findObject(formControlQuery, labelText, 'control');
+export function findControl(labelText, type) {
+  return _findControl(findObject, labelText, type)
 }
 
-export default function findControls(labelText) {
-  return findObjects(formControlQuery, labelText, 'control');
+export default function findControls(labelText, type) {
+  return _findControl(findObjects, labelText, type)
 }
 
 export function findObject(selector, labelText, type) {
