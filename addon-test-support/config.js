@@ -40,3 +40,20 @@ let functions = {
 export let strategies = Object.keys(functions).map(function(key){
   return [key,functions[key]];
 });
+
+
+export let customFillers = {
+  select: [],
+  text: [],
+  toggle: []
+}
+
+function pushFillerFactory(type){
+  return function pushFiller(func){
+    customFillers[type].push(func);
+  }
+}
+
+export let pushSelectFiller = pushFillerFactory('select');
+export let pushTextFiller = pushFillerFactory('text');
+export let pushToggleFiller = pushFillerFactory('toggle');

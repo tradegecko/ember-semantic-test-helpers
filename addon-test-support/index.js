@@ -1,6 +1,6 @@
-import fillIn from './fillIn';
-import select from './select';
-import toggle from './toggle';
+import fillIn from './form-helpers/fillIn';
+import select from './form-helpers/select';
+import toggle from './form-helpers/toggle';
 import click from './click';
 import config from './config';
 import { findControl, findButton } from './finders';
