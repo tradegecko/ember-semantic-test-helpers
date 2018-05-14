@@ -23,7 +23,7 @@ module('Integration | Helper | select', function(hooks) {
 
   module('User gives bad value', function(){
     test('Notifies user if value was a value but not a semantic value', async function(assert) {
-      let error = 'While selecting 2 for Location. You tried to fill in using value "2" instead of the semantic label "aaa"';
+      let error = 'You tried to fill in using value "2" instead of the semantic label "aaa"';
       await render(hbs`
         <label for='control'>Location</label>
         <select id="control">
@@ -41,7 +41,7 @@ module('Integration | Helper | select', function(hooks) {
     });
 
     test('If no option found, offers users the possible options that are available', async function(assert) {
-      let error = 'While selecting aa for Location. Could not find option aa, possible options are qqq,aaa,bbb';
+      let error = 'Could not find option aa, possible options are qqq,aaa,bbb';
       await render(hbs`
         <label for='control'>Location</label>
         <select id="control">
