@@ -5,7 +5,7 @@ import { render, find } from '@ember/test-helpers';
 import { findControl } from 'ember-semantic-test-helpers/test-support';
 
 async function assertControl(assert){
-  let control = findControl('Label of control');
+  let control = findControl('Label of control', 'input');
   let input = find('#control');
   assert.equal(control, input);
 }
@@ -44,7 +44,7 @@ module('Integration | Helper | findControl', function(hooks) {
         </div>
       `);
       try {
-        findControl('Label of control');
+        findControl('Label of control', 'input');
       } catch(e) {
         assert.equal(e.message, `Control Label of control found through invalid label for relationship`)
       }

@@ -22,6 +22,7 @@ export let input = [
 
 export let toggle = [
   '[role="checkbox"]',
+  '[type="checkbox"]',
 ]
 
 export let select = [
