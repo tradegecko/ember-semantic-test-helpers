@@ -8,8 +8,10 @@ let queryHash = {
   select: selectQuery,
 }
 
+
 let _findControl = function (method, labelText, type){
-  return method(queryHash[type], labelText, `${type} Control`)
+  let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
+  return method(queryHash[type], labelText, `${humanizedType} Control`)
 }
 
 export function findButton(labelText){
