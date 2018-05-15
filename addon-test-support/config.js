@@ -1,6 +1,3 @@
-import InvalidFor from './errors/invalid-for';
-import PerceivedByName from './errors/perceived-by-name';
-import MissingObject from './errors/missing-object';
 import findByAria from './dom/find-by-aria';
 import findByLabel from './dom/find-by-label';
 import findByName from './dom/find-by-name';
@@ -11,10 +8,6 @@ export default {
 }
 
 
-export let errors = {
-  invalidFor: InvalidFor,
-  perceivedByName: PerceivedByName,
-  missingObject: MissingObject,
 }
 
 export let buildMessage = function(error, type, labelText){
