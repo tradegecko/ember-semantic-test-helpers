@@ -22,10 +22,10 @@ function findByLabel(selector, text) {
 
       }).join(',');
       elements = document.querySelectorAll(selector);
-      if(elements){
+      if(elements && elements.length){
         return elements;
       } else {
-        return document.getElementById(id);
+        return [document.getElementById(id)];
       }
     } else {
       throw new Error(`Label was found for ${text} but it did not have a for attribute`)
