@@ -1,6 +1,11 @@
-import findByAria from './find-by-aria';
+import findByAria from '../find-by-aria';
 
-export default function findByLabel(selector, text) {
+export default {
+  run: findByLabel,
+  key: 'invalidFor',
+}
+
+function findByLabel(selector, text) {
   let label = findByAria('label', text);
   if(label.length) {
     label = label[0]

@@ -1,5 +1,5 @@
 import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
-import { strategies } from './config';
+import { strategies as getStratergies } from './config';
 import notify from './notify';
 
 let queryHash = {
@@ -42,6 +42,7 @@ export function findObject(selector, labelText, type) {
 
 export function findObjects(selector, labelText, type='object', index=0) {
   let key, strategy;
+  let strategies = getStratergies();
   if(!key){
     if(strategies.length === index) {
       return

@@ -1,14 +1,27 @@
 import findByAria from './dom/find-by-aria';
-import findByLabel from './dom/find-by-label';
-import findByName from './dom/find-by-name';
+import findByLabel from './dom/fallbacks/find-by-label';
+import findByName from './dom/fallbacks/find-by-name';
 
-export default {
-  invalidFor: 1,
-  perceivedByName: 1,
+let rules = { }
+
+let functions = {
+  ariaNotFound: findByAria,
 }
 
+export default rules;
 
+export function registerFinder({key, run}){
+  rules[key] = 1;
+  functions[key] = run;
 }
+
+export function unregisterFinder({key}){
+  delete rules[key];
+  delete functions[key];
+}
+
+registerFinder(findByName)
+registerFinder(findByLabel)
 
 export let buildMessage = function(error, type, labelText){
   switch(error){
@@ -23,17 +36,11 @@ export let buildMessage = function(error, type, labelText){
   }
 }
 
-
-let functions = {
-  ariaNotFound: findByAria,
-  invalidFor: findByLabel,
-  perceivedByName: findByName
+export function strategies(){
+  return Object.keys(functions).map(function(key){
+    return [key,functions[key]];
+  });
 }
-
-export let strategies = Object.keys(functions).map(function(key){
-  return [key,functions[key]];
-});
-
 
 export let customFillers = {
   select: [],
