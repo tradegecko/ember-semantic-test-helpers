@@ -1,5 +1,5 @@
 import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
-import { strategies as getStratergies } from './config';
+import { finders } from './config';
 import notify from './notify';
 
 let queryHash = {
@@ -41,23 +41,19 @@ export function findObject(selector, labelText, type) {
 }
 
 export function findObjects(selector, labelText, type='object', index=0) {
-  let key, strategy;
-  let strategies = getStratergies();
-  if(!key){
-    if(strategies.length === index) {
-      return
-    }
-    key = strategies[index][0]
-    strategy = strategies[index][1]
+  if(finders.length === index) {
+    return
   }
+  let key = finders[index].key
+  let strategy = finders[index].run
 
   let objects = strategy(selector, labelText)
   if(!objects || objects.length == 0){
     objects = findObjects(selector, labelText, type, index + 1)
-    if(index == strategies.length-1){
+    if(index == finders.length-1){
       return
     }
-  } else if (index != 0) {
+  } else if (key !== 'ariaNotFound') {
     notify(key, type, labelText);
   }
   return objects || [];
