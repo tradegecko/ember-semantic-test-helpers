@@ -9,9 +9,13 @@ let defaultFiller = {
 }
 
 export default async function(control, value, type) {
-  let filledIn = customFillers[type].some(function(filler) {
-    return filler(control, value);
-  });
+  let filledIn
+  for(let i = 0; i< customFillers[type].length; i++){
+    filledIn = await customFillers[type][i](control, value);
+    if(filledIn){
+      break;
+    }
+  }
   if(!filledIn){
     return defaultFiller[type](control, value);
   }
