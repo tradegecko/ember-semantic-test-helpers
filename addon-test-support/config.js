@@ -8,6 +8,12 @@ let functions = {
   ariaNotFound: findByAria,
 }
 
+export let customFillers = {
+  select: [],
+  text: [],
+  toggle: []
+}
+
 export default rules;
 
 export function registerFinder({key, run}){
@@ -22,6 +28,11 @@ export function unregisterFinder({key}){
 
 registerFinder(findByName)
 registerFinder(findByLabel)
+
+
+export function registerFiller({type, run}){
+  customFillers[type].push(run);
+}
 
 export let buildMessage = function(error, type, labelText){
   switch(error){
@@ -41,19 +52,3 @@ export function strategies(){
     return [key,functions[key]];
   });
 }
-
-export let customFillers = {
-  select: [],
-  text: [],
-  toggle: []
-}
-
-function pushFillerFactory(type){
-  return function pushFiller(func){
-    customFillers[type].push(func);
-  }
-}
-
-export let pushSelectFiller = pushFillerFactory('select');
-export let pushTextFiller = pushFillerFactory('text');
-export let pushToggleFiller = pushFillerFactory('toggle');
