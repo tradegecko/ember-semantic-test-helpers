@@ -1,4 +1,4 @@
-import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
+import { buttonQuery, textQuery, toggleQuery, selectQuery, formControlQuery} from './dom/selectors';
 import { finders } from './config';
 import notify from './notify';
 
@@ -6,10 +6,11 @@ let queryHash = {
   text: textQuery,
   toggle: toggleQuery,
   select: selectQuery,
+  form: formControlQuery,
 }
 
 
-let _findControl = function (method, labelText, type = ""){
+let _findControl = function (method, labelText, type = 'form'){
   let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
   return method(queryHash[type], labelText, `${humanizedType} Control`)
 }
