@@ -9,7 +9,8 @@ export let finders = []
 export let customFillers = {
   select: [],
   text: [],
-  toggle: []
+  toggle: [],
+  button: [],
 }
 
 export default rules;
