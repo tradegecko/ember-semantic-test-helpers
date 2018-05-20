@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/tradegecko/ember-semantic-test-helpers.svg?branch=master)](https://travis-ci.org/tradegecko/ember-semantic-test-helpers)
 
 
-Exposes semantic helpers based on https://github.com/emberjs/rfcs/pull/327 rfc
+Exposes semantic helpers based on https://github.com/emberjs/rfcs/pull/327 RFC
 
 Installation
 ------------------------------------------------------------------------------
@@ -12,8 +12,26 @@ Installation
 ember install ember-semantic-test-helpers
 ```
 
+Concepts
+------------------------------------------------------------------------------
+Currently, there are a few elements managed by this addon.
 
-Usage
+1. select form controls
+2. text form controls
+3. toggle form controls
+4. clickable elements.
+
+this leads to the following helper functions in order :
+
+1. `select`
+2. `fillin`
+3. `toggle`
+4. `click`
+
+The definition of what elements are select/text.. can be found  [here](https://github.com/tradegecko/ember-semantic-test-helpers/blame/master/addon-test-support/dom/types.js#L1). These definitions will improve and grow over time, let us know if something is missing, or incorrectly defined.
+
+
+Basic Usage
 ------------------------------------------------------------------------------
 
 ```js
@@ -34,127 +52,81 @@ module('Login', function(hooks) {
   });
 });
 ```
+**Finders**
+Finders are passed a `selector: string` which encapsulates the various types as defined before. they then use various strategies to compute a label for the elements selected. This label is matched the passed `text`
 
-Fallback
-------------------------------------------------------------------------------
-We cannot expect every app to be 100% aria compliant at the moment, for that reason,
-their are fallback element finders.
+Every finder should have a unique key that will be used for error level configuration.
 
+Finally finders should implement and error text if they have matched, ideally, every finder will match find-by-aria, as this is the aria compliancy finder. if they do not it is considered an error, but we still want elements found so that developers can use the helpers. While providing a path to aria compliancy.
 
-1. perceivedByName
-Will search for controls using the name attribute
-```html
-<input name="hello" />
-```
-2. invalidFor
-label[for] can only target form elements, but it is common that they target `div` elements.
-It will deeply search that div for the first of the following:
-
-- fillIn -> text control
-- select -> select control
-- toggle -> toggleable control
-
-exact definitions of these can be found `addon-test-support/dom/types`;
-
-```html
-<label for="my-cutom-control" />
-<div id="my-custom-control"><input></div>
+**Finder Object Defintion**
+```ts
+{
+  key: string
+  run: function(selector: string, text: string): HTMLElement
+  errorText: function(type, labelText)
+}
 ```
 
-By default if the control is found using these strategies a warning will be logged,
-this behaviour can be configured.
 
-```js
-import { config } from 'ember-semantic-test-helpers/test-support';
+This package defines 3 finders.
+1. **find-by-aria**,
+uses [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te), to compute and compare labels of elements found by
 
-config.perceivedByName = <level>
-config.invalidFor = <level>
+2. **find-by-name**, uses `[name=""]`
+
+3. **find-by-label**, Not all elements are equal if your labels `[for=""]` targets an element that is not an HTML semantic form control, it is not aria compliant.
+
+
+**Actors**
+`select`, `click`, `fillin` helpers are all actors. The problem arises that there is a diverse set of customised form controls, that either we don't support the aria spec completely yet, or that are just not compliant at all. In order to resolve this, you can define your own actors.
+
+Actors are namespaced to their function eg select, or an actor that clicks. we support a finite set of these acts.
+
+**Actor object definition**
+```ts
+{
+  type: Enum('select', 'toggle', 'text', 'click')
+  run:function(control: HTMLElement, value)
+}
 ```
+The type of value is different for each kind of actor
 
-the levels:
-- 0: will throw an error.
-- 1: will throw a warning.
-- 2: will silence.
+1. select `value: string`
+2. toggle `value: null`
+3. text `value: string`
+4. click `value: null`
 
-ideally these warnings are fixed as one would deprecations and once fixed you can,
-set the level to 0, so that there are no more regressions.
+An example of a select actor can be found [here](https://github.com/tradegecko/ember-semantic-test-helpers/blame/master/tests/integration/components/custom-fillers-test.js#L19)
+
+
+**Finders/Actors**
 
 API
 ------------------------------------------------------------------------------
-
-This addon defines a few ux/accessible semantic helpers.
-
-#### High level
 ```ts
 function click(label: string): Promise<void>
 ```
-Internally uses `findButton`, then invokes `click` from `ember-test-helpers`
 
 ```ts
 function select(label: string, value): Promise<void>
 ```
-Internally uses `findControl`, then invokes a custom select function that will select based on label instead of value
 
 ```ts
 function toggle(label: string): Promise<void>
 ```
-Internally uses `findControl`, then invokes `click` from `ember-test-helpers` on that control
 
 ```ts
 function fillIn(label: string, value): Promise<void>
 ```
 
-Internally uses `findControl`, then invokes `fillIn` from `ember-test-helpers` on that control
-
-#### low level
 ```ts
 function findButton(label: string, value): HTMLElement
 ```
-Searches the page for the following
-
-```js
-'button',
-'a',
-'[role="button"]',
-'input[type="reset"]',
-'input[type="button"]',
-'input[type="submit"]',
-'[role="link"]',
-'[role="menuitem"]',
-```
-Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
 
 ```ts
 function findControl(label: string, value): HTMLElement
 ```
-
-Searches the page for the following
-```js
-//use fillIn helper for these
-let inputs = [
-  'input',
-  'textarea',
-  '[role="slider"]',
-  '[role="spinbutton"]',
-  '[role="textbox"]',
-  '[contenteditable="true"]',
-]
-
-//use toggle helper for these
-let toggles = [
-  '[role="checkbox"]',
-]
-
-//use select helper helper for these
-let selectables = [
-  'select',
-  '[role="listbox"]',
-  '[role="radiogroup"]',
-]
-```
-
-Then computes the label for each control using [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te) either returns the result or an ergonomic error
-
 
 Contributing
 ------------------------------------------------------------------------------
