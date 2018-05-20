@@ -5,7 +5,8 @@ export default function(rule,  type, labelText){
   if(isNaN(level)){
     level = 0
   }
-  let message = buildMessage(rule, type, labelText);
+  let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
+  let message = buildMessage(rule, `${humanizedType} Control`, labelText);
   switch(level){
     case 0:
       throw new Error(message)

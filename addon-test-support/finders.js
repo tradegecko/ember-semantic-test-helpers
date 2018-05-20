@@ -12,8 +12,7 @@ let queryHash = {
 
 
 let _findControl = function (method, labelText, type = 'form'){
-  let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
-  return method(queryHash[type], labelText, `${humanizedType} Control`)
+  return method(queryHash[type], labelText, type)
 }
 
 export function findButton(labelText){
@@ -36,8 +35,6 @@ export function findObject(selector, labelText, type) {
   let objects = findObjects(selector, labelText, type)
   if(objects.length > 1){
     notify('ambiguousLabel', type, labelText);
-  } else if(!objects.length) {
-    notify('missingObject', type, labelText)
   }
   return objects[0];
 }
