@@ -1,4 +1,4 @@
-import { customFillers } from '../../config';
+import config from '../../config';
 import { fillIn, click } from '@ember/test-helpers';
 import fillInSelect from './fillin-select';
 
@@ -10,9 +10,10 @@ let defaultFiller = {
 }
 
 export default async function(control, value, type) {
-  let filledIn
-  for(let i = 0; i< customFillers[type].length; i++){
-    filledIn = await customFillers[type][i](control, value);
+  let filledIn = null
+  let actors = config.actors;
+  for(let i = 0; i< actors[type].length; i++){
+    filledIn = await actors[type][i](control, value);
     if(filledIn){
       break;
     }

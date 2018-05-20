@@ -1,5 +1,5 @@
 import { buttonQuery, textQuery, toggleQuery, selectQuery, formControlQuery} from './dom/selectors';
-import { finders } from './config';
+import config from './config';
 import notify from './notify';
 
 let queryHash = {
@@ -40,6 +40,7 @@ export function findObject(selector, labelText, type) {
 }
 
 export function findObjects(selector, labelText, type='object', index=0) {
+  let finders = config.finders;
   if(finders.length === index) {
     return
   }

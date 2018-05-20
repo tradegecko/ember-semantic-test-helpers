@@ -1,19 +1,17 @@
-import { config } from 'ember-semantic-test-helpers/test-support';
+import config from 'ember-semantic-test-helpers/test-support/config';
 
 export default function(hooks, levels){
   hooks.beforeEach(function(){
-    if(typeof levels === 'object') {
-      Object.assign(config, levels);
-    } else if (!isNaN(levels)) {
-      Object.keys(config).forEach(function(value){
-        config[value] = levels;
-      })
+    if(!isNaN(levels)){
+      levels = Object.keys(config.rules).reduce((acc, rule) => {
+        acc[rule] = levels;
+        return acc;
+      }, {})
     }
+    config.setErrorLevels(levels);
   });
 
   hooks.afterEach(function(){
-    Object.keys(config).forEach(function(value){
-      config[value] = 1;
-    })
+    config.setErrorLevels({});
   });
 }

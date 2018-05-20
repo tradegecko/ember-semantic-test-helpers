@@ -1,7 +1,8 @@
-import {default as config } from './config';
+import config from './config';
 
 export default function(rule,  type, labelText, generateMessage){
-  let level = config[rule];
+  let rules = config.rules;
+  let level = rules[rule];
   if(isNaN(level)){
     level = 0
   }
