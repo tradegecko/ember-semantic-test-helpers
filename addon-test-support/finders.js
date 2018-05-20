@@ -43,8 +43,9 @@ export function findObjects(selector, labelText, type='object', index=0) {
   if(finders.length === index) {
     return
   }
-  let key = finders[index].key
-  let strategy = finders[index].run
+  let finder = finders[index]
+  let key = finder.key
+  let strategy = finder.run
 
   let objects = strategy(selector, labelText)
   if(!objects || objects.length == 0){
@@ -53,7 +54,7 @@ export function findObjects(selector, labelText, type='object', index=0) {
       return
     }
   } else if (key !== 'ariaNotFound') {
-    notify(key, type, labelText);
+    notify(key, type, labelText, finder.errorText);
   }
   return objects || [];
 }

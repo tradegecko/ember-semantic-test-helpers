@@ -3,6 +3,9 @@ import { findAll } from '@ember/test-helpers';
 export default {
   run: findByName,
   key: 'perceivedByName',
+  errorText: function(type, labelText){
+    return `Control ${labelText} found through input name attribute`;
+  }
 }
 
 function findByName(selector, text) {

@@ -3,6 +3,9 @@ import findByAria from '../find-by-aria';
 export default {
   run: findByLabel,
   key: 'invalidFor',
+  errorText: function(type, labelText){
+    return `Control ${labelText} found through invalid label for relationship`;
+  }
 }
 
 function findByLabel(selector, text) {

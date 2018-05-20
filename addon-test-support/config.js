@@ -34,16 +34,3 @@ registerFinder({
 export function registerFiller({type, run}){
   customFillers[type].push(run);
 }
-
-export let buildMessage = function(error, type, labelText){
-  switch(error){
-    case 'perceivedByName' :
-      return `Control ${labelText} found through input name attribute`;
-    case 'invalidFor' :
-      return `Control ${labelText} found through invalid label for relationship`;
-    case 'ambiguousLabel' :
-      return  `Multiple ${type} labelled ${labelText} where found`;
-    case 'missingObject' :
-      return `Could not find ${type} labelled '${labelText}'`;
-  }
-}
