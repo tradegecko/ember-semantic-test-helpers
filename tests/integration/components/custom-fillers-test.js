@@ -4,15 +4,16 @@ import { module, test } from 'qunit';
 import { render } from '@ember/test-helpers';
 import { select } from 'ember-semantic-test-helpers/test-support';
 import { find } from 'ember-test-helpers';
-import { pushSelectFiller, customFillers } from 'ember-semantic-test-helpers/test-support/config';
+import config from 'ember-semantic-test-helpers/test-support/config';
 
 module('Integration | Helper | Custom Fillers', function(hooks) {
   setupRenderingTest(hooks);
 
   module('select', function(hooks){
     hooks.afterEach(function(){
-      customFillers.select = [];
+      config.customActors.select = [];
     });
+
     test('select will use custom filler if present', async function(assert){
       await render(hbs`
       <label for="ember6766">craycray</label>
@@ -32,13 +33,16 @@ module('Integration | Helper | Custom Fillers', function(hooks) {
       </div>
       `);
 
-      pushSelectFiller(function(control, value){
-        let options = document.querySelectorAll(`#${control.parentElement.attributes.id.value} .option`);
-        let element = Array.prototype.slice.call(options).find(function(element){
-          return element.innerText === value
-        })
-        control.options[0].innerText = element.innerText;
-        return true;
+      config.registerActor({
+        type:'select',
+        run:function(control, value){
+          let options = document.querySelectorAll(`#${control.parentElement.attributes.id.value} .option`);
+          let element = Array.prototype.slice.call(options).find(function(element){
+            return element.innerText === value
+          })
+          control.options[0].innerText = element.innerText;
+          return true;
+        }
       });
 
       await select('craycray', 'GotWood');

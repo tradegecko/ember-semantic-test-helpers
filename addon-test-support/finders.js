@@ -1,25 +1,26 @@
-import { buttonQuery, textQuery, toggleQuery, selectQuery } from './dom/selectors';
-import { strategies } from './config';
+import { buttonQuery, textQuery, toggleQuery, selectQuery, formControlQuery} from './dom/selectors';
+import config from './config';
 import notify from './notify';
 
 let queryHash = {
   text: textQuery,
   toggle: toggleQuery,
   select: selectQuery,
+  form: formControlQuery,
+  button: buttonQuery,
 }
 
 
-let _findControl = function (method, labelText, type = ""){
-  let humanizedType = type.charAt(0).toUpperCase() + type.slice(1);
-  return method(queryHash[type], labelText, `${humanizedType} Control`)
+let _findControl = function (method, labelText, type = 'form'){
+  return method(queryHash[type], labelText, type)
 }
 
 export function findButton(labelText){
-  return findObject(buttonQuery, labelText, 'button');
+  return findControl(labelText, 'button');
 }
 
 export function findButtons(labelText){
-  return findObjects(buttonQuery, labelText, 'button');
+  return findControls(labelText, 'button');
 }
 
 export function findControl(labelText, type) {
@@ -34,30 +35,27 @@ export function findObject(selector, labelText, type) {
   let objects = findObjects(selector, labelText, type)
   if(objects.length > 1){
     notify('ambiguousLabel', type, labelText);
-  } else if(!objects.length) {
-    notify('missingObject', type, labelText)
   }
   return objects[0];
 }
 
 export function findObjects(selector, labelText, type='object', index=0) {
-  let key, strategy;
-  if(!key){
-    if(strategies.length === index) {
-      return
-    }
-    key = strategies[index][0]
-    strategy = strategies[index][1]
+  let finders = config.finders;
+  if(finders.length === index) {
+    return
   }
+  let finder = finders[index]
+  let key = finder.key
+  let strategy = finder.run
 
   let objects = strategy(selector, labelText)
   if(!objects || objects.length == 0){
     objects = findObjects(selector, labelText, type, index + 1)
-    if(index == strategies.length-1){
+    if(index == finders.length-1){
       return
     }
-  } else if (index != 0) {
-    notify(key, type, labelText);
+  } else if (key !== 'ariaNotFound') {
+    notify(key, type, labelText, finder.errorText);
   }
   return objects || [];
 }

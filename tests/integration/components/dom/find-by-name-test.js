@@ -2,9 +2,9 @@ import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import { render } from '@ember/test-helpers';
-import findByName from 'ember-semantic-test-helpers/test-support/dom/find-by-name';
+import FindByName from 'ember-semantic-test-helpers/test-support/dom/fallbacks/find-by-name';
 import { textQuery } from 'ember-semantic-test-helpers/test-support/dom/selectors';
-
+let findByName = FindByName.run;
 module('Integration | Helper | FindByName', function(hooks) {
   setupRenderingTest(hooks);
 

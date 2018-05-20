@@ -1,59 +1,58 @@
-import InvalidFor from './errors/invalid-for';
-import PerceivedByName from './errors/perceived-by-name';
-import MissingObject from './errors/missing-object';
 import findByAria from './dom/find-by-aria';
-import findByLabel from './dom/find-by-label';
-import findByName from './dom/find-by-name';
+import findByLabel from './dom/fallbacks/find-by-label';
+import findByName from './dom/fallbacks/find-by-name';
 
-export default {
-  invalidFor: 1,
-  perceivedByName: 1,
+let baseFinder = {
+  key:'ariaNotFound',
+  run: findByAria
 }
 
+class Config {
+  constructor(){
+    this.registeredFinders = [];
+    this.defaultFinders = [baseFinder,findByLabel,findByName];
+    this.errorLevelOptions = {};
+    this.customActors = {
+      select: [],
+      text: [],
+      toggle: [],
+      button: [],
+    }
+  }
 
-export let errors = {
-  invalidFor: InvalidFor,
-  perceivedByName: PerceivedByName,
-  missingObject: MissingObject,
-}
+  registerFinder(finder){
+    this.rules[finder.key] = 1;
+    this.registeredFinders.push(finder)
+  }
 
-export let buildMessage = function(error, type, labelText){
-  switch(error){
-    case 'perceivedByName' :
-      return `Control ${labelText} found through input name attribute`;
-    case 'invalidFor' :
-      return `Control ${labelText} found through invalid label for relationship`;
-    case 'ambiguousLabel' :
-      return  `Multiple ${type} labelled ${labelText} where found`;
-    case 'missingObject' :
-      return `Could not find ${type} labelled '${labelText}'`;
+  registerActor({type, run}){
+    this.customActors[type].push(run);
+  }
+
+  setErrorLevels(config) {
+    this.errorLevelOptions = config
+  }
+
+  get actors(){
+    return this.customActors;
+  }
+
+  get finders(){
+    return this.defaultFinders.concat(this.registeredFinders);
+  }
+
+  get rules(){
+    let rules = this.finders.reduce((acc,finder) => {
+      let config = this.errorLevelOptions[finder.key];
+      if(isNaN(config)){
+        acc[finder.key] =  1;
+      } else {
+        acc[finder.key] = config;
+      }
+      return acc;
+    },{});
+    return rules;
   }
 }
 
-
-let functions = {
-  ariaNotFound: findByAria,
-  invalidFor: findByLabel,
-  perceivedByName: findByName
-}
-
-export let strategies = Object.keys(functions).map(function(key){
-  return [key,functions[key]];
-});
-
-
-export let customFillers = {
-  select: [],
-  text: [],
-  toggle: []
-}
-
-function pushFillerFactory(type){
-  return function pushFiller(func){
-    customFillers[type].push(func);
-  }
-}
-
-export let pushSelectFiller = pushFillerFactory('select');
-export let pushTextFiller = pushFillerFactory('text');
-export let pushToggleFiller = pushFillerFactory('toggle');
+export default new Config();
