@@ -1,5 +1,5 @@
 import fillinWrapper from './fillin-wrapper';
-import { findControl } from '../../finders';
+import { findControl } from '../../find-helpers';
 import notify from '../../notify';
 
 export default async function(label, value, type) {

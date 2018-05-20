@@ -1,4 +1,4 @@
-import { buttonQuery, textQuery, toggleQuery, selectQuery, formControlQuery} from './dom/selectors';
+import { buttonQuery, textQuery, toggleQuery, selectQuery, formControlQuery} from './definitions/selectors';
 import config from './config';
 import notify from './notify';
 
