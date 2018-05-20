@@ -6,6 +6,7 @@ let defaultFiller = {
   text: fillIn,
   select: fillInSelect,
   toggle: click,
+  button: click
 }
 
 export default async function(control, value, type) {

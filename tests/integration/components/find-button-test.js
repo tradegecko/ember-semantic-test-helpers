@@ -9,7 +9,7 @@ async function assertMissingButton(assert, text){
   try{
     button =  findButton(text);
   } catch(e) {
-    assert.equal(e.message, `Could not find button labelled '${text}'`)
+    assert.equal(e.message, `Could not find Button Control labelled '${text}'`)
   }
   assert.equal(button, undefined);
 

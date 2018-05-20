@@ -7,6 +7,7 @@ let queryHash = {
   toggle: toggleQuery,
   select: selectQuery,
   form: formControlQuery,
+  button: buttonQuery,
 }
 
 
@@ -16,11 +17,11 @@ let _findControl = function (method, labelText, type = 'form'){
 }
 
 export function findButton(labelText){
-  return findObject(buttonQuery, labelText, 'button');
+  return findControl(labelText, 'button');
 }
 
 export function findButtons(labelText){
-  return findObjects(buttonQuery, labelText, 'button');
+  return findControls(labelText, 'button');
 }
 
 export function findControl(labelText, type) {

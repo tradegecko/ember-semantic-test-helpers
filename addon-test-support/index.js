@@ -1,7 +1,7 @@
-import fillIn from './form-helpers/fillIn';
-import select from './form-helpers/select';
-import toggle from './form-helpers/toggle';
-import click from './click';
+import fillIn from './actors/fillIn';
+import select from './actors/select';
+import toggle from './actors/toggle';
+import click from './actors/click';
 import config from './config';
 import { findControl, findButton } from './finders';
 
