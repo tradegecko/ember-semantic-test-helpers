@@ -1,6 +1,6 @@
-import findByAria from './dom/find-by-aria';
-import findByLabel from './dom/fallbacks/find-by-label';
-import findByName from './dom/fallbacks/find-by-name';
+import findByAria from './finders/find-by-aria';
+import findByLabel from './finders/find-by-label';
+import findByName from './finders/find-by-name';
 
 let baseFinder = {
   key:'ariaNotFound',

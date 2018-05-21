@@ -1,4 +1,4 @@
-import findByAria from '../find-by-aria';
+import findByAria from './find-by-aria';
 
 export default {
   run: findByLabel,

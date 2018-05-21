@@ -3,7 +3,7 @@ import select from './actors/select';
 import toggle from './actors/toggle';
 import click from './actors/click';
 import config from './config';
-import { findControl, findButton } from './finders';
+import { findControl, findButton } from './find-helpers';
 
 export {
   fillIn,
