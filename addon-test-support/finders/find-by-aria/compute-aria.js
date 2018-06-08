@@ -15,10 +15,6 @@ export default function(element){
     label = element.attributes['aria-label'].value;
   }
 
-  if(!label && element.attributes['aria-label'] && element.attributes['aria-label'].value){
-    label = element.attributes['aria-label'].value;
-  }
-
   if(!label && element.labels && element.labels.length){
     label = Array.prototype.slice.call(element.labels).map( (label) => {
       return label.innerText
