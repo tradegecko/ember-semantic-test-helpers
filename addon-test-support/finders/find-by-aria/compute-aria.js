@@ -1,16 +1,6 @@
 import { find } from "@ember/test-helpers";
-export default function(element){
-  let label = null;
 
-  //first travese one depth of lablledby
-  if(!label && element.attributes['aria-labelledby'] && element.attributes['aria-labelledby'].value){
-    let ids = element.attributes['aria-labelledby'].value;
-    label = ids.split(' ').map( (id) => {
-      return find(`#${id}`).innerText
-    }).join(' ')
-  }
-
-  //then aria-label
+const computeTextAlternativeForElement = (element, label = '') => {
   if(!label && element.attributes['aria-label'] && element.attributes['aria-label'].value){
     label = element.attributes['aria-label'].value;
   }
@@ -20,6 +10,7 @@ export default function(element){
       return label.innerText
     }).join('');
   }
+
   //find rare case of type=image and alt
   if(!label && element.attributes.type && element.attributes.type.value === "image"){
     if(element.attributes['alt']) {
@@ -27,7 +18,6 @@ export default function(element){
     } else if(element.attributes['title']) {
       label = element.attributes['title'].value;
     }
-
   }
 
   //try innerText for buttons
@@ -44,7 +34,23 @@ export default function(element){
     label = element.attributes['title'].value;
   }
 
-  if(label){
+  return label;
+}
+
+export default function(element){
+  let label = '';
+
+  //first travese one depth of lablledby
+  if(element.attributes['aria-labelledby'] && element.attributes['aria-labelledby'].value) {
+    let ids = element.attributes['aria-labelledby'].value;
+    label = ids.split(' ').map( (id) => {
+      return computeTextAlternativeForElement(find(`#${id}`));
+    }).join(' ')
+  } else {
+    label = computeTextAlternativeForElement(element);
+  }
+
+  if(label) {
     label = label.toLowerCase().trim();
   }
 
