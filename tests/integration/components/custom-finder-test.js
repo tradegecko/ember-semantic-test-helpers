@@ -27,7 +27,7 @@ module('Integration | Helper | Custom Fillers', function(hooks) {
 
     test('finder finds element', async function(assert) {
       await render(hbs`
-        <input x-data="cool" />
+        <input aria-label="cool" x-data="cool" />
       `);
       try {
         await fillIn('cool', 'some-text')

@@ -38,7 +38,7 @@ class Config {
   }
 
   get finders(){
-    return this.defaultFinders.concat(this.registeredFinders);
+    return this.registeredFinders.concat(this.defaultFinders);
   }
 
   get rules(){
