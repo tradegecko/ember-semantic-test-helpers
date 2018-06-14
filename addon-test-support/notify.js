@@ -28,6 +28,6 @@ function buildMessage(rule, type, labelText){
     case 'missingObject' :
       return `Could not find ${type} labelled '${labelText}'`;
     default :
-      return `Custom rule ${rule} found ${type} labelled '${labelText}`
+      return `Custom rule ${rule} found ${type} labelled '${labelText}'`
   }
 }

@@ -21,7 +21,7 @@ class Config {
   }
 
   registerFinder(finder){
-    this.rules[finder.key] = 1;
+    this.errorLevelOptions[finder.key] = 1;
     this.registeredFinders.push(finder)
   }
 
@@ -38,7 +38,7 @@ class Config {
   }
 
   get finders(){
-    return this.defaultFinders.concat(this.registeredFinders);
+    return this.registeredFinders.concat(this.defaultFinders);
   }
 
   get rules(){
