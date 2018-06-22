@@ -6,30 +6,19 @@
 
 Exposes semantic helpers based on https://github.com/emberjs/rfcs/pull/327 RFC
 
+The goal of this addon is to promote a path way to aria compatibility for ember applications and addons. while improving developer ergonomics.
+
+An element must be perceivable to  **assistive technologies** in order to have a democratized internet.
+If an element is not perceivable then it is should not be perceivable to tests either.
+
+Instead of searching for elements using css selectors you will use what is present on your ui, the happy path is that your ui is aria compliant and this addon would just work. Since their are many applications that are not compliant, if we don't explode but we use configurable strategies to find and fill in elements.
+
+
 Installation
 ------------------------------------------------------------------------------
 ```bash
 ember install ember-semantic-test-helpers
 ```
-
-Concepts
-------------------------------------------------------------------------------
-Currently, there are a few elements managed by this addon.
-
-1. select form controls
-2. text form controls
-3. toggle form controls
-4. clickable elements.
-
-this leads to the following helper functions in order :
-
-1. `select`
-2. `fillin`
-3. `toggle`
-4. `click`
-
-The definition of what elements are select/text.. can be found  [here](https://github.com/tradegecko/ember-semantic-test-helpers/blame/master/addon-test-support/dom/types.js#L1). These definitions will improve and grow over time, let us know if something is missing, or incorrectly defined.
-
 
 Basic Usage
 ------------------------------------------------------------------------------
@@ -51,8 +40,48 @@ module('Login', function(hooks) {
     await click('Log in');
   });
 });
+
 ```
-**Finders**
+Interacting with elements
+------------------------------------------------------------------------------
+Elements are differentiated by their modes of interaction. here is a list of interactions and corresponding helpers:
+1. dropdowns - `select`
+2. input boxes - `fillIn`
+3. toggles - `toggle`
+4. clickable elements - `click`
+
+The definition of what elements are select/text.. can be found  [here](https://github.com/tradegecko/ember-semantic-test-helpers/blob/master/addon-test-support/definitions/types.js). These definitions will improve and grow over time, let us know if something is missing, or incorrectly defined.
+
+How elements are found.
+------------------------------------------------------------------------------
+An element is perceived using the [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te), which is implemented [here](https://github.com/tradegecko/ember-semantic-test-helpers/blob/master/addon-test-support/finders/find-by-aria/compute-aria.js)
+
+
+If your element does not follow this spec we currently comes support 2 fallback finding strategies.
+
+1. **perceivedByName**, uses `[name=""]`
+
+2. **invalidFor**, Not all elements are equal if your labels `[for=""]` targets an element that is not an HTML semantic form control, it is not aria compliant.
+
+if an element is found using a fallback strategy it is considered an error, the severity of that error can be configured. by default all rules are set to 1
+
+```js
+import config from 'ember-semantic-test-helpers/test-support/config';
+
+config.setErrorLevels({
+  invalidFor: 0
+  perceivedByName: 2
+  myCustomRule: 1
+})
+
+```
+0 = Throw error
+1 = log to console
+2 = silence
+
+
+If you need to build more fallback strategies
+------------------------------------------------------------------------------
 Finders are passed a `selector: string` which encapsulates the various types as defined before. they then use various strategies to compute a label for the elements selected. This label is matched the passed `text`
 
 Every finder should have a unique key that will be used for error level configuration.
@@ -67,21 +96,11 @@ Finally finders should implement and error text if they have matched, ideally, e
   errorText: function(type, labelText)
 }
 ```
+Actors
+------------------------------------------------------------------------------
+Elements are interacted with using actors. `toggle`,`select`, `click`, `fillin` helpers are all actors. The problem arises that there is a diverse set of customised form controls, that either this addon does not support the aria spec completely yet, or that are just not compliant at all. In order to resolve this, you can define your own actors.
 
-
-This package defines 3 finders.
-1. **find-by-aria**,
-uses [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te), to compute and compare labels of elements found by
-
-2. **find-by-name**, uses `[name=""]`
-
-3. **find-by-label**, Not all elements are equal if your labels `[for=""]` targets an element that is not an HTML semantic form control, it is not aria compliant.
-
-
-**Actors**
-`select`, `click`, `fillin` helpers are all actors. The problem arises that there is a diverse set of customised form controls, that either we don't support the aria spec completely yet, or that are just not compliant at all. In order to resolve this, you can define your own actors.
-
-Actors are namespaced to their function eg select, or an actor that clicks. we support a finite set of these acts.
+Actors are by the base helpers, `toggle`,`select`, `click`, `fillin`
 
 **Actor object definition**
 ```ts
@@ -98,9 +117,6 @@ The type of value is different for each kind of actor
 4. click `value: null`
 
 An example of a select actor can be found [here](https://github.com/tradegecko/ember-semantic-test-helpers/blame/master/tests/integration/components/custom-fillers-test.js#L19)
-
-
-**Finders/Actors**
 
 API
 ------------------------------------------------------------------------------
