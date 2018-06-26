@@ -1,5 +1,5 @@
 import computeAria from './compute-aria';
-import { findAll } from "@ember/test-helpers";
+import findAll from './../helpers/findAll';
 
 export default function findByAria(selector, labelText) {
   return findAll(selector).filter( (element) => {

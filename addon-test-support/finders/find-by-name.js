@@ -1,4 +1,4 @@
-import { findAll } from '@ember/test-helpers';
+import findAll from './helpers/findAll';
 
 export default {
   run: findByName,

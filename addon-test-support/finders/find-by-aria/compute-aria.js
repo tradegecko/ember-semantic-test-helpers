@@ -1,5 +1,3 @@
-import { find } from "@ember/test-helpers";
-
 const computeTextAlternativeForElement = (element, label = '') => {
   if(!label && element.attributes['aria-label'] && element.attributes['aria-label'].value){
     label = element.attributes['aria-label'].value;
@@ -44,7 +42,11 @@ export default function(element){
   if(element.attributes['aria-labelledby'] && element.attributes['aria-labelledby'].value) {
     let ids = element.attributes['aria-labelledby'].value;
     label = ids.split(' ').map( (id) => {
-      return computeTextAlternativeForElement(find(`#${id}`));
+      let element = document.querySelector(`#${id}`);
+      if(element){
+        return computeTextAlternativeForElement(element);
+      }
+      return '';
     }).join(' ')
   } else {
     label = computeTextAlternativeForElement(element);
