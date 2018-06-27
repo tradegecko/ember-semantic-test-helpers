@@ -21,11 +21,13 @@ export let text = [
 ]
 
 export let toggle = [
+  '[role="menuitemcheckbox"]',
   '[role="checkbox"]',
   '[type="checkbox"]',
 ]
 
 export let select = [
+  '[role="menuitemradio"]',
   'select',
   '[role="listbox"]',
   '[role="radiogroup"]',
