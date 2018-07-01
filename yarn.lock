@@ -5600,9 +5600,9 @@ sane@^2.2.0, sane@^2.4.1:
   optionalDependencies:
     fsevents "^1.1.1"
 
-semantic-dom-selectors@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/semantic-dom-selectors/-/semantic-dom-selectors-0.0.4.tgz#eb2d09792159d33bc7172c3904097e5a4503f021"
+semantic-dom-selectors@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/semantic-dom-selectors/-/semantic-dom-selectors-0.0.5.tgz#960d565912cea67a23110bcef8d0f81b6b094c25"
   dependencies:
     babel "^6.23.0"
     babel-core "^6.26.3"
