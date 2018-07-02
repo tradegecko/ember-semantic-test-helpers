@@ -2,10 +2,9 @@ import { module, test } from 'qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
-import FindByAria from 'ember-semantic-test-helpers/test-support/finders/find-by-aria';
-import { buttonQuery } from 'ember-semantic-test-helpers/test-support/definitions/selectors';
+import { findByAria, buttonQuery } from 'semantic-dom-selectors';
 
-module('Integration | Helper | FindByAria', function(hooks) {
+module('Integration | Helper | findByAria', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it traverses aria-labelledby', async function(assert){
@@ -15,7 +14,7 @@ module('Integration | Helper | FindByAria', function(hooks) {
         <span role="button" tabindex="0" id="del_row1" aria-label="Delete" aria-labelledby="del_row1 file_row1"></span>
       </div>
     `);
-    let foundButton = FindByAria(buttonQuery, 'delete documentation.pdf');
+    let foundButton = findByAria(buttonQuery, 'delete documentation.pdf');
     let expected = document.querySelector("#del_row1");
     assert.equal(foundButton.length, 1);
     assert.equal(foundButton[0], expected);
@@ -28,7 +27,7 @@ module('Integration | Helper | FindByAria', function(hooks) {
         <span role="button" tabindex="0" id="del_row1" aria-label="Delete" aria-labelledby="file_row1 del_row1"></span>
       </div>
     `);
-    let foundButton = FindByAria(buttonQuery, 'documentation.pdf delete');
+    let foundButton = findByAria(buttonQuery, 'documentation.pdf delete');
     let expected = document.querySelector("#del_row1");
     assert.equal(foundButton.length, 1);
     assert.equal(foundButton[0], expected);
@@ -41,7 +40,7 @@ module('Integration | Helper | FindByAria', function(hooks) {
         <span role="button" tabindex="0" id="del_row1" aria-label="Delete"></span>
       </div>
     `);
-    let foundButton = FindByAria(buttonQuery, 'delete');
+    let foundButton = findByAria(buttonQuery, 'delete');
     let expected = document.querySelector("#del_row1");
     assert.equal(foundButton.length, 1);
     assert.equal(foundButton[0], expected);
