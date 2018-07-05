@@ -2,7 +2,8 @@ import { module, test } from 'qunit';
 import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
-import { findByAria, buttonQuery } from 'semantic-dom-selectors';
+import { config , buttonQuery } from 'semantic-dom-selectors';
+let findByAria = config.defaultFinders[0].run
 
 module('Integration | Helper | findByAria', function(hooks) {
   setupRenderingTest(hooks);
