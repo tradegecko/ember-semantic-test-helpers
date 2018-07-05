@@ -69,16 +69,15 @@ if an element is found using a fallback strategy it is considered an error, the 
 import config from 'ember-semantic-test-helpers/test-support/config';
 
 config.setErrorLevels({
-  invalidFor: 0
-  perceivedByName: 2
-  myCustomRule: 1
+  invalidFor: 0 //Throw error
+  perceivedByName: 2 //silence
+  myCustomRule: 1 //log to console
 })
 
 ```
-0 = Throw error
-1 = log to console
-2 = silence
 
+Trimming
+------------------------------------------------------------------------------
 
 If you need to build more fallback strategies
 ------------------------------------------------------------------------------
