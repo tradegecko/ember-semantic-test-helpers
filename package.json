@@ -31,7 +31,8 @@
   "dependencies": {
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^3.0.0",
-    "ember-cli-babel": "^6.6.0"
+    "ember-cli-babel": "^6.6.0",
+    "semantic-dom-selectors": "^0.0.7"
   },
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.5",
@@ -57,8 +58,7 @@
     "ember-try": "^0.2.23",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-node": "^6.0.1",
-    "loader.js": "^4.2.3",
-    "semantic-dom-selectors": "^0.0.7"
+    "loader.js": "^4.2.3"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
