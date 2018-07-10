@@ -16,10 +16,15 @@ module.exports = {
   },
 
   treeForVendor(vendorTree) {
-    let qunitPluginTree = new Funnel(`${__dirname}/node_modules/semantic-dom-selectors/dist`, {
+    let semanticTestHelperTree = new Funnel(`${this.project.root}/node_modules/semantic-dom-selectors/dist`, {
       files: ['semantic-dom-selectors.js', 'semantic-dom-selectors.js.map'],
     });
-
-    return new MergeTrees([vendorTree, qunitPluginTree]);
+    if(vendorTree){
+      //if tree is for app this is not null
+      return new MergeTrees([vendorTree, semanticTestHelperTree]);
+    } else {
+      //if is an addon this is null
+      return semanticTestHelperTree;
+    }
   },
-};
+}
