@@ -26,6 +26,7 @@ Basic Usage
 ```js
 import { module, test } from 'qunit';
 import { setupApplicationTest } from 'ember-qunit';
+import { visit } from '@ember/test-helpers';
 import { click, fillIn, select, toggle } from 'ember-semantic-test-helpers/test-support';
 
 module('Login', function(hooks) {
