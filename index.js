@@ -13,6 +13,7 @@ module.exports = {
   included() {
     this._super.included.apply(this, arguments);
     this.import('vendor/semantic-dom-selectors.js', { type: 'test' });
+    this.import('vendor/qunit-semantic-assertions.js', { type: 'test' });
   },
 
   treeForVendor(vendorTree) {
