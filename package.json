@@ -32,7 +32,7 @@
     "broccoli-funnel": "^2.0.1",
     "broccoli-merge-trees": "^3.0.0",
     "ember-cli-babel": "^6.6.0",
-    "qunit-semantic-assertions": "0.0.1",
+    "qunit-semantic-assertions": "0.0.2",
     "semantic-dom-selectors": "^0.0.10"
   },
   "devDependencies": {
