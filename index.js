@@ -19,12 +19,15 @@ module.exports = {
     let semanticTestHelperTree = new Funnel(`${this.project.root}/node_modules/semantic-dom-selectors/dist`, {
       files: ['semantic-dom-selectors.js', 'semantic-dom-selectors.js.map'],
     });
+    let qunitSemanticAssertionsTree = new Funnel(`${this.project.root}/node_modules/qunit-semantic-assertions/dist`, {
+      files: ['qunit-semantic-assertions.js', 'qunit-semantic-assertions.js.map'],
+    });
     if(vendorTree){
       //if tree is for app this is not null
-      return new MergeTrees([vendorTree, semanticTestHelperTree]);
+      return new MergeTrees([vendorTree, semanticTestHelperTree, qunitSemanticAssertionsTree]);
     } else {
       //if is an addon this is null
-      return semanticTestHelperTree;
+      return new MergeTrees([qunitSemanticAssertionsTree,semanticTestHelperTree]);
     }
   },
 }
