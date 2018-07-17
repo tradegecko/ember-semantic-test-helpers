@@ -79,6 +79,14 @@ config.setErrorLevels({
 
 Trimming
 ------------------------------------------------------------------------------
+Change the way we trim the inner text of dom. by default we normalize it all line breaks and mutli-spaces to 1space.
+
+```js
+import config from 'ember-semantic-test-helpers/test-support/config';
+
+config.trim = function(text){ return text }
+//if you don't want it to be trim
+```
 
 If you need to build more fallback strategies
 ------------------------------------------------------------------------------
