@@ -55,7 +55,7 @@ The definition of what elements are select/text.. can be found  [here](https://g
 
 How elements are found.
 ------------------------------------------------------------------------------
-An element is perceived using the [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te), which is implemented [here](https://github.com/tradegecko/ember-semantic-test-helpers/blob/master/addon-test-support/finders/find-by-aria/compute-aria.js)
+An element is perceived using the [Text alternative spec](https://www.w3.org/TR/accname-1.1/#mapping_additional_nd_te), which is implemented [here](https://github.com/tradegecko/semantic-dom-selectors/blob/master/src/finders/find-by-aria/compute-aria.js)
 
 
 If your element does not follow this spec we currently comes support 2 fallback finding strategies.
