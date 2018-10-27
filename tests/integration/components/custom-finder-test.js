@@ -20,7 +20,7 @@ module('Integration | Helper | Custom Fillers', function(hooks) {
         errorMessage: function(type, labelText){
           return `you found ${labelText} using the x-data finder`;
         }
-      })
+      });
     });
 
     enableErrors(hooks, {awesomeFinder: 0});
