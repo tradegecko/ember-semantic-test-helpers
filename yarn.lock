@@ -5627,6 +5627,16 @@ semantic-dom-selectors@^0.0.10:
     rollup "^0.61.2"
     rollup-plugin-babel "^3.0.5"
 
+semantic-dom-selectors@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/semantic-dom-selectors/-/semantic-dom-selectors-0.0.11.tgz#056c99d2bb34005b5e35631b3930fb4ca2f8ad90"
+  dependencies:
+    babel "^6.23.0"
+    babel-core "^6.26.3"
+    babel-preset-env "^1.7.0"
+    rollup "^0.61.2"
+    rollup-plugin-babel "^3.0.5"
+
 "semver@2 || 3 || 4 || 5", semver@^5.1.0, semver@^5.1.1, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
