@@ -3,7 +3,7 @@ import { render } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import { setupRenderingTest } from 'ember-qunit';
 import { config , buttonQuery } from 'semantic-dom-selectors';
-let findByAria = config.defaultFinders[0].run
+let findByAria = config.registeredFinders[0].run;
 
 module('Integration | Helper | findByAria', function(hooks) {
   setupRenderingTest(hooks);
