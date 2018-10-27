@@ -20,14 +20,14 @@ module('Integration | Helper | Custom Fillers', function(hooks) {
         errorMessage: function(type, labelText){
           return `you found ${labelText} using the x-data finder`;
         }
-      })
+      });
     });
 
     enableErrors(hooks, {awesomeFinder: 0});
 
     test('finder finds element', async function(assert) {
       await render(hbs`
-        <input aria-label="cool" x-data="cool" />
+        <input x-data="cool" />
       `);
       try {
         await fillIn('cool', 'some-text')
