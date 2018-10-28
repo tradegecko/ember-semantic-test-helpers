@@ -5627,9 +5627,9 @@ semantic-dom-selectors@^0.0.10:
     rollup "^0.61.2"
     rollup-plugin-babel "^3.0.5"
 
-semantic-dom-selectors@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.yarnpkg.com/semantic-dom-selectors/-/semantic-dom-selectors-0.0.11.tgz#056c99d2bb34005b5e35631b3930fb4ca2f8ad90"
+semantic-dom-selectors@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/semantic-dom-selectors/-/semantic-dom-selectors-0.0.12.tgz#b6ef5dfbc642c9bac27671da1f9357a5fbd78b64"
   dependencies:
     babel "^6.23.0"
     babel-core "^6.26.3"
