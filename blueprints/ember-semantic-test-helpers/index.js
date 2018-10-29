@@ -5,9 +5,10 @@ module.exports = {
 
   afterInstall: function() {
     var TEST_HELPER_PATH = 'tests/test-helper.js';
-    var IMPORT_STATEMENT = EOL + "import './helpers/semantic-assertions';";
+    var IMPORT_STATEMENTS = [`import './helpers/semantic-assertions';`, `import './helpers/semantic-selectors';`];
 
-    return this.insertIntoFile(TEST_HELPER_PATH, IMPORT_STATEMENT);
+    return this.insertIntoFile(TEST_HELPER_PATH, EOL+ IMPORT_STATEMENTS.join(EOL));
+
   },
 
   normalizeEntityName: function() {}
