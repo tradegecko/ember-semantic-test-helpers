@@ -34,7 +34,7 @@
     "broccoli-merge-trees": "^3.0.2",
     "ember-cli-babel": "^7.1.2",
     "qunit-semantic-assertions": "0.0.3",
-    "semantic-dom-selectors": "^0.0.11"
+    "semantic-dom-selectors": "^0.0.13"
   },
   "devDependencies": {
     "@ember/optional-features": "^0.6.3",
