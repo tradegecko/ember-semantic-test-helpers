@@ -8,7 +8,7 @@ const Funnel = require('broccoli-funnel');
 const MergeTrees = require('broccoli-merge-trees');
 
 module.exports = {
-  name: 'ember-semantic-test-helpers',
+  name: require('./package').name,
 
   included() {
     this._super.included.apply(this, arguments);

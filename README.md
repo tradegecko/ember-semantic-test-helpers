@@ -14,6 +14,14 @@ If an element is not perceivable then it is should not be perceivable to tests e
 Instead of searching for elements using css selectors you will use what is present on your ui, the happy path is that your ui is aria compliant and this addon would just work. Since their are many applications that are not compliant, if we don't explode but we use configurable strategies to find and fill in elements.
 
 
+
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v2.18 or above
+* Ember CLI v2.13 or above
+
+
 Installation
 ------------------------------------------------------------------------------
 ```bash
@@ -155,29 +163,8 @@ function findControl(label: string, value): HTMLElement
 Contributing
 ------------------------------------------------------------------------------
 
-#### Installation
+See the [Contributing](CONTRIBUTING.md) guide for details.
 
-* `git clone <repository-url>`
-* `cd my-addon`
-* `npm install`
-
-#### Linting
-
-* `npm run lint:js`
-* `npm run lint:js -- --fix`
-
-#### Running tests
-
-* `ember test` – Runs the test suite on the current Ember version
-* `ember test --server` – Runs the test suite in "watch mode"
-* `ember try:each` – Runs the test suite against multiple Ember versions
-
-#### Running the dummy application
-
-* `ember serve`
-* Visit the dummy application at [http://localhost:4200](http://localhost:4200).
-
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
 License
 ------------------------------------------------------------------------------
