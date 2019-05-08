@@ -1,6 +1,6 @@
 {
   "name": "ember-semantic-test-helpers",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Semantic test helpers for testing accessible ember apps",
   "keywords": [
     "ember-addon",
