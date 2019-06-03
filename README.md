@@ -153,11 +153,11 @@ function fillIn(label: string, value): Promise<void>
 ```
 
 ```ts
-function findButton(label: string, value): HTMLElement
+function findButton(label: string): HTMLElement
 ```
 
 ```ts
-function findControl(label: string, value): HTMLElement
+function findControl(label: string, type: 'text' | 'toggle' | 'select' | 'form' | 'button'): HTMLElement
 ```
 
 Contributing
