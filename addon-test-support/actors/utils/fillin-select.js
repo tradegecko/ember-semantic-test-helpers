@@ -1,7 +1,7 @@
 import { findAll, fillIn, click, settled } from '@ember/test-helpers';
 
 export default async function(control, value){
-  let options = await findAll(`#${control.attributes.id.value} option, [role="option"]`);
+  let options = await findAll(`#${control.attributes.id.value} option, [role="option"], [role="alert"]`);
   let option = options.find((option) => {
     return option.innerText.replace(/\r?\n|\r/g,'').trim().toLowerCase() === (""+value).toLowerCase()
   })
